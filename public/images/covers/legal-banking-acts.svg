@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800" viewBox="0 0 600 800">
+  <rect width="100%" height="100%" fill="#e8edf7" rx="20"/>
+  <g fill="#16213f" font-family="Georgia, serif">
+    <text x="30" y="120" font-size="36" font-weight="700">Legal Banking Acts</text>
+    <text x="30" y="160" font-size="18" opacity="0.8">R. K. Gupta</text>
+    <rect x="30" y="220" width="540" height="420" rx="12" fill="#16213f" opacity="0.06" />
+    <text x="30" y="680" font-size="14" opacity="0.8">Banking Law · English</text>
+  </g>
+</svg>
