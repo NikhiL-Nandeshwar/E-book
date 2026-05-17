@@ -16,7 +16,7 @@
   --secondary-foreground: oklch(0.27 0.03 258);
   --muted: oklch(0.95 0.01 80);
   --muted-foreground: oklch(0.53 0.03 258);
-  --accent: oklch(0.72 0.13 68);
+  --accent: oklch(0.92 0.01 80);
   --accent-foreground: oklch(0.19 0.02 258);
   --destructive: oklch(0.58 0.23 26);
   --destructive-foreground: oklch(0.98 0.01 85);
@@ -157,7 +157,6 @@
   .bg-app-shell {
     background:
       radial-gradient(circle at top left, rgba(38, 70, 168, 0.12), transparent 30%),
-      radial-gradient(circle at bottom right, rgba(214, 166, 81, 0.12), transparent 24%),
       linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.24));
   }
 
