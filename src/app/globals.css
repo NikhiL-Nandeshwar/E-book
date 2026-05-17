@@ -134,14 +134,12 @@
     @apply min-h-screen bg-background text-foreground;
     background-image:
       radial-gradient(circle at top, rgba(38, 70, 168, 0.14), transparent 28%),
-      radial-gradient(circle at bottom right, rgba(214, 166, 81, 0.14), transparent 24%),
       linear-gradient(180deg, #fcfbf8 0%, #f7f3ec 100%);
   }
 
   .dark body {
     background-image:
       radial-gradient(circle at top, rgba(78, 115, 255, 0.18), transparent 26%),
-      radial-gradient(circle at bottom right, rgba(214, 166, 81, 0.12), transparent 24%),
       linear-gradient(180deg, #111827 0%, #0f172a 100%);
   }
 

@@ -24,6 +24,7 @@ export const metadata: Metadata = {
     'A modern static ebook platform demo built with Next.js, TypeScript, Tailwind CSS, and shadcn/ui.',
   icons: {
     icon: [
+      { url: '/favicon.ico' },
       {
         url: '/icon-light-32x32.png',
         media: '(prefers-color-scheme: light)',

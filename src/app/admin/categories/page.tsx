@@ -5,8 +5,8 @@ import Link from 'next/link'
 import { FolderKanban, Pencil, Plus, Power, ShieldAlert, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
 
-import { Header } from '@/components/header'
-import { SiteFooter } from '@/components/site-footer'
+import { Header } from '@/src/components/header'
+import { SiteFooter } from '@/src/components/site-footer'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,10 +16,10 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/components/ui/alert-dialog'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
+} from '@/src/components/ui/alert-dialog'
+import { Badge } from '@/src/components/ui/badge'
+import { Button } from '@/src/components/ui/button'
+import { Card } from '@/src/components/ui/card'
 import {
   Dialog,
   DialogContent,
@@ -27,9 +27,9 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+} from '@/src/components/ui/dialog'
+import { Input } from '@/src/components/ui/input'
+import { Label } from '@/src/components/ui/label'
 import {
   Table,
   TableBody,
@@ -37,9 +37,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
-import { Textarea } from '@/components/ui/textarea'
-import { useDemo } from '@/components/demo-provider'
+} from '@/src/components/ui/table'
+import { Textarea } from '@/src/components/ui/textarea'
+import { useDemo } from '@/src/components/demo-provider'
 import {
   createCategoryApi,
   deleteCategoryApi,
@@ -47,7 +47,7 @@ import {
   type CategoryDetail,
   toggleCategoryApi,
   updateCategoryApi,
-} from '@/lib/category-api'
+} from '@/src/lib/category-api'
 
 type CategoryFormState = {
   categoryName: string
