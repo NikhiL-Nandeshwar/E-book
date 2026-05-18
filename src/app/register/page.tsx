@@ -29,7 +29,7 @@ export default function RegisterPage() {
       toast.error('Please complete all fields.')
       return
     }
-    if (!email.includes('@/src')) {
+    if (!email.includes('@')) {
       toast.error('Please enter a valid email address.')
       return
     }

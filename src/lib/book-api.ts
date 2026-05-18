@@ -109,8 +109,8 @@ export interface UpdateBookPayload {
   isFeatured: boolean
   isActive: boolean
   tagsRaw: string
-  newPdfFile?: File | null
-  newCoverFile?: File | null
+  pdfFile?: File | null
+  coverFile?: File | null
 }
 
 function toQueryString(params: Record<string, string | number | boolean | undefined>) {
@@ -244,8 +244,8 @@ export async function updateBookApi(
   form.append('IsFeatured', String(payload.isFeatured))
   form.append('IsActive', String(payload.isActive))
   form.append('TagsRaw', payload.tagsRaw)
-  if (payload.newPdfFile) form.append('NewPdfFile', payload.newPdfFile)
-  if (payload.newCoverFile) form.append('NewCoverFile', payload.newCoverFile)
+  if (payload.pdfFile) form.append('PdfFile', payload.pdfFile)
+  if (payload.coverFile) form.append('CoverFile', payload.coverFile)
 
   return apiFetch<BookAdminDetailData>('Book/Update', {
     method: 'PUT',

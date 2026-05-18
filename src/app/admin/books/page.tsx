@@ -257,8 +257,8 @@ export default function AdminBooksPage() {
       isFeatured: form.isFeatured,
       isActive: form.isActive,
       tagsRaw: getTags().join(', '),
-      newPdfFile: form.pdfFile,
-      newCoverFile: form.coverFile,
+      pdfFile: form.pdfFile,
+      coverFile: form.coverFile,
     })
 
     if (!res.success || !res.data) {
