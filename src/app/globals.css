@@ -45,39 +45,46 @@
 }
 
 .dark {
-  --background: oklch(0.16 0.02 258);
-  --foreground: oklch(0.94 0.01 95);
-  --card: oklch(0.2 0.02 258);
-  --card-foreground: oklch(0.94 0.01 95);
-  --popover: oklch(0.19 0.02 258);
-  --popover-foreground: oklch(0.94 0.01 95);
-  --primary: oklch(0.78 0.08 235);
-  --primary-foreground: oklch(0.18 0.02 258);
-  --secondary: oklch(0.25 0.02 258);
-  --secondary-foreground: oklch(0.94 0.01 95);
-  --muted: oklch(0.24 0.02 258);
+  --background: oklch(0.12 0.02 258);
+  --foreground: oklch(0.95 0.01 95);
+  --card: oklch(0.16 0.02 258);
+  --card-foreground: oklch(0.95 0.01 95);
+  --popover: oklch(0.16 0.02 258);
+  --popover-foreground: oklch(0.95 0.01 95);
+  --primary: oklch(0.68 0.14 232);
+  --primary-foreground: oklch(0.98 0.01 85);
+  --secondary: oklch(0.42 0.12 236);
+  --secondary-foreground: oklch(0.95 0.01 95);
+  --muted: oklch(0.20 0.02 258);
   --muted-foreground: oklch(0.72 0.02 95);
-  --accent: oklch(0.78 0.1 70);
-  --accent-foreground: oklch(0.18 0.02 258);
+  --accent: oklch(0.72 0.08 238);
+  --accent-foreground: oklch(0.95 0.01 95);
   --destructive: oklch(0.64 0.2 26);
   --destructive-foreground: oklch(0.95 0.01 95);
-  --border: oklch(0.31 0.02 258);
-  --input: oklch(0.22 0.02 258);
-  --ring: oklch(0.78 0.08 235);
-  --sidebar: oklch(0.18 0.02 258);
-  --sidebar-foreground: oklch(0.94 0.01 95);
-  --sidebar-primary: oklch(0.78 0.08 235);
-  --sidebar-primary-foreground: oklch(0.18 0.02 258);
-  --sidebar-accent: oklch(0.78 0.1 70);
-  --sidebar-accent-foreground: oklch(0.18 0.02 258);
+  --border: oklch(0.30 0.03 258);
+  --input: oklch(0.18 0.03 258);
+  --ring: oklch(0.68 0.14 235);
+  --sidebar: oklch(0.14 0.02 258);
+  --sidebar-foreground: oklch(0.95 0.01 95);
+  --sidebar-primary: oklch(0.68 0.14 235);
+  --sidebar-primary-foreground: oklch(0.95 0.01 95);
+  --sidebar-accent: oklch(0.58 0.16 238);
+  --sidebar-accent-foreground: oklch(0.95 0.01 95);
   --sidebar-border: oklch(0.31 0.02 258);
   --sidebar-ring: oklch(0.78 0.08 235);
-  --color-brand: #8eb0ff;
-  --color-brand-strong: #dfe9ff;
-  --color-brand-soft: rgba(142, 176, 255, 0.25);
-  --color-brand-faint: rgba(142, 176, 255, 0.12);
+  --color-brand: #5f7ce6;
+  --color-brand-strong: #2d4fa8;
+  --color-brand-soft: rgba(95, 124, 230, 0.32);
+  --color-brand-faint: rgba(95, 124, 230, 0.16);
   --color-gold: #f0c87a;
 }
+
+.dark .bg-app-shell {
+  background:
+    radial-gradient(circle at top left, rgba(142, 176, 255, 0.12), transparent 30%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.82));
+}
+
 
 @theme inline {
   --font-sans: var(--font-manrope);
@@ -170,3 +177,27 @@
   background: rgba(15, 23, 42, 0.68);
   box-shadow: 0 30px 80px rgba(2, 8, 23, 0.35);
 }
+
+.dark .bg-white\/90 { background-color: rgba(255, 255, 255, 0.03) !important; }
+.dark .bg-white\/85 { background-color: rgba(255, 255, 255, 0.04) !important; }
+.dark .bg-white\/80 { background-color: rgba(255, 255, 255, 0.05) !important; }
+.dark .bg-white\/70 { background-color: rgba(255, 255, 255, 0.06) !important; }
+.dark .bg-white\/65 { background-color: rgba(255, 255, 255, 0.06) !important; }
+.dark .bg-white\/60 { background-color: rgba(255, 255, 255, 0.08) !important; }
+.dark .bg-white\/15 { background-color: rgba(255, 255, 255, 0.08) !important; }
+.dark .bg-white\/10 { background-color: rgba(255, 255, 255, 0.10) !important; }
+.dark .bg-white\/8 { background-color: rgba(255, 255, 255, 0.08) !important; }
+.dark .bg-white\/5 { background-color: rgba(255, 255, 255, 0.04) !important; }
+.dark .bg-white { background-color: rgba(255, 255, 255, 0.04) !important; }
+.dark .bg-white\/95 { background-color: rgba(255, 255, 255, 0.02) !important; }
+.dark .border-white { border-color: rgba(255, 255, 255, 0.10) !important; }
+.dark .border-white\/70 { border-color: rgba(255, 255, 255, 0.12) !important; }
+.dark .border-white\/80 { border-color: rgba(255, 255, 255, 0.14) !important; }
+.dark .border-white\/10 { border-color: rgba(255, 255, 255, 0.12) !important; }
+.dark .bg-slate-100 { background-color: rgba(248, 250, 252, 0.08) !important; }
+.dark .bg-slate-50 { background-color: rgba(248, 250, 252, 0.05) !important; }
+.dark .bg-\[\#eef2f8\] { background-color: rgba(15, 23, 42, 0.7) !important; }
+.dark .bg-\[linear-gradient\(180deg,#f8efe5,#e8edf7\)\] { background: linear-gradient(180deg,#111827,#1f2937) !important; }
+.dark .bg-\[linear-gradient\(180deg,#f7ead6,#e4ebf7\)\] { background: linear-gradient(180deg,#111827,#1f2937) !important; }
+.dark .text-slate-900 { color: #f8fafc !important; }
+

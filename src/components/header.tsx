@@ -86,7 +86,7 @@ export function Header() {
                 className={cn(
                   'rounded-full px-4 py-2 text-sm font-medium transition-colors',
                   active
-                    ? 'bg-foreground text-background shadow-sm'
+                    ? 'bg-[color:var(--color-brand)] text-white shadow-sm hover:bg-[color:var(--color-brand)]'
                     : 'text-muted-foreground hover:text-foreground',
                 )}
               >

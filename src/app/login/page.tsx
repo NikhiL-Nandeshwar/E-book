@@ -55,7 +55,7 @@ export default function LoginPage() {
               BookVault
             </Badge>
             <h1 className="mt-6 font-display text-6xl leading-none">
-              Welcome back to your digital reading lounge.
+              Welcome to your digital reading lounge.
             </h1>
             <p className="mt-4 max-w-xl text-lg leading-8 text-muted-foreground">
               Sign in to access your library, continue reading, and discover new titles curated
