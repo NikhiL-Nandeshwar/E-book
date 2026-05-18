@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Library, LockKeyhole, Mail } from 'lucide-react'
+import { Eye, EyeOff, Library, LockKeyhole, Mail } from 'lucide-react'
 
 import { useDemo } from '@/src/components/demo-provider'
 import { Badge } from '@/src/components/ui/badge'
@@ -19,6 +19,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -124,16 +125,29 @@ export default function LoginPage() {
                     Forgot password?
                   </Link>
                 </div>
-                <Input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="h-12 rounded-2xl border-white bg-[#fdfaf5]"
-                  placeholder="Your password"
-                  autoComplete="current-password"
-                  disabled={isLoading}
-                />
+
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? 'text' : 'password'}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="h-12 rounded-2xl border-white bg-[#fdfaf5] pr-12"
+                    placeholder="Your password"
+                    autoComplete="current-password"
+                    disabled={isLoading}
+                  />
+
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    className="absolute inset-y-0 right-4 flex items-center text-muted-foreground hover:text-foreground"
+                    disabled={isLoading}
+                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                  >
+                    {showPassword ? <EyeOff className="size-5" /> : <Eye className="size-5" />}
+                  </button>
+                </div>
               </div>
 
               <Button
