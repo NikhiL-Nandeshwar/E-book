@@ -108,11 +108,11 @@ export default function LibraryPage() {
             <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
               {visiblePurchasedBooks.map((book) => (
                 <Card key={book.id} className="overflow-hidden rounded-[28px] border-white/70 bg-white/90 shadow-none">
-                  <div className="aspect-[4/5] overflow-hidden bg-[linear-gradient(180deg,#f7ead6,#e4ebf7)] p-3">
+                  <div className="aspect-[4/5] overflow-hidden bg-[linear-gradient(180deg,#f7ead6,#e4ebf7)] p-4">
                     <img
                       src={book.image}
                       alt={book.title}
-                      className="h-full w-full rounded-[22px] object-cover transition-transform duration-300 hover:scale-105"
+                      className="h-full w-full rounded-[18px] object-contain transition-transform duration-300 hover:scale-105"
                     />
                   </div>
                   <div className="space-y-4 p-5">

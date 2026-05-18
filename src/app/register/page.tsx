@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { BookOpen, ShieldCheck, Sparkles } from 'lucide-react'
+import { BookOpen, Eye, EyeOff, ShieldCheck, Sparkles } from 'lucide-react'
 
 import { Badge } from '@/src/components/ui/badge'
 import { Button } from '@/src/components/ui/button'
@@ -20,6 +20,8 @@ export default function RegisterPage() {
   const [mobile, setMobile] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -126,31 +128,57 @@ export default function RegisterPage() {
               {/* Password */}
               <div className="space-y-2">
                 <Label htmlFor="reg-password">Password</Label>
-                <Input
-                  id="reg-password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="h-12 rounded-2xl border-white bg-[#fdfaf5]"
-                  placeholder="Min. 6 characters"
-                  autoComplete="new-password"
-                  disabled={isLoading}
-                />
+                <div className="relative">
+                  <Input
+                    id="reg-password"
+                    type={showPassword ? 'text' : 'password'}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="h-12 rounded-2xl border-white bg-[#fdfaf5] pr-12"
+                    placeholder="Min. 6 characters"
+                    autoComplete="new-password"
+                    disabled={isLoading}
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    className="absolute right-1.5 top-1/2 size-9 -translate-y-1/2 rounded-full text-muted-foreground hover:text-foreground"
+                    onClick={() => setShowPassword((value) => !value)}
+                    disabled={isLoading}
+                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                  >
+                    {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+                  </Button>
+                </div>
               </div>
 
               {/* Confirm Password */}
               <div className="space-y-2">
                 <Label htmlFor="confirmPassword">Confirm Password</Label>
-                <Input
-                  id="confirmPassword"
-                  type="password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="h-12 rounded-2xl border-white bg-[#fdfaf5]"
-                  placeholder="Repeat your password"
-                  autoComplete="new-password"
-                  disabled={isLoading}
-                />
+                <div className="relative">
+                  <Input
+                    id="confirmPassword"
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    className="h-12 rounded-2xl border-white bg-[#fdfaf5] pr-12"
+                    placeholder="Repeat your password"
+                    autoComplete="new-password"
+                    disabled={isLoading}
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    className="absolute right-1.5 top-1/2 size-9 -translate-y-1/2 rounded-full text-muted-foreground hover:text-foreground"
+                    onClick={() => setShowConfirmPassword((value) => !value)}
+                    disabled={isLoading}
+                    aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
+                  >
+                    {showConfirmPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+                  </Button>
+                </div>
               </div>
 
               <Button
