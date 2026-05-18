@@ -5,13 +5,19 @@
  * – Forwards HttpOnly refresh-token cookie automatically (credentials: 'include')
  */
 
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
+const DEFAULT_API_BASE_URL = 'https://kopbnkassobook.runasp.net/restapi/v1.0'
+
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? DEFAULT_API_BASE_URL
 export const ASSET_BASE_URL =
   process.env.NEXT_PUBLIC_ASSET_BASE_URL ??
-  (API_BASE_URL ? new URL(API_BASE_URL).origin : '')
+  new URL(API_BASE_URL).origin
 
-if (!API_BASE_URL) {
-  console.warn('[api-client] NEXT_PUBLIC_API_BASE_URL is not set in .env.local')
+if (!process.env.NEXT_PUBLIC_API_BASE_URL) {
+  console.warn(`[api-client] NEXT_PUBLIC_API_BASE_URL is not set. Falling back to ${DEFAULT_API_BASE_URL}`)
+}
+
+function buildApiUrl(path: string) {
+  return `${API_BASE_URL.replace(/\/+$/, '')}/${path.replace(/^\/+/, '')}`
 }
 
 /** Matches ApiResponse<T> returned by every backend endpoint */
@@ -92,11 +98,9 @@ export function clearAccessToken(): void {
 let refreshPromise: Promise<boolean> | null = null
 
 async function tryRefreshToken(): Promise<boolean> {
-  if (!API_BASE_URL) return false
-
   if (!refreshPromise) {
     refreshPromise = (async () => {
-      const response = await fetch(`${API_BASE_URL}/Auth/RefreshToken`, {
+      const response = await fetch(buildApiUrl('Auth/RefreshToken'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -151,7 +155,7 @@ export async function apiFetch<T>(
   const token = getAccessToken()
   const headers = buildHeaders(options, token)
 
-  const response = await fetch(`${API_BASE_URL}/${path}`, {
+  const response = await fetch(buildApiUrl(path), {
     ...options,
     headers,
     credentials: 'include', // sends & receives the HttpOnly refreshToken cookie
@@ -184,7 +188,7 @@ export async function apiRawFetch<T>(
   const token = getAccessToken()
   const headers = buildHeaders(options, token)
 
-  const response = await fetch(`${API_BASE_URL}/${path}`, {
+  const response = await fetch(buildApiUrl(path), {
     ...options,
     headers,
     credentials: 'include',
