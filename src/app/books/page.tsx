@@ -4,9 +4,9 @@ import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { Compass, Search, Sparkles } from 'lucide-react'
 
-import { BookCard } from '@/src/components/book-card'
-import { Header } from '@/src/components/header'
-import { SiteFooter } from '@/src/components/site-footer'
+import { BookCard } from '@/src/components/custom/book-card'
+import { Header } from '@/src/components/custom/header'
+import { SiteFooter } from '@/src/components/custom/site-footer'
 import { Badge } from '@/src/components/ui/badge'
 import { Button } from '@/src/components/ui/button'
 import { localBooks } from '@/src/lib/local-books'
@@ -31,8 +31,6 @@ export default function BooksPage() {
 
   return (
     <main className="min-h-screen">
-      <Header />
-
       <div className="mx-auto max-w-7xl space-y-8 px-4 py-6 sm:px-6 lg:px-8 lg:space-y-10">
         <section className="section-shell px-5 py-6 sm:px-8 sm:py-8 lg:px-10">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
@@ -98,8 +96,6 @@ export default function BooksPage() {
           </div>
         </section>
       </div>
-
-      <SiteFooter />
     </main>
   )
 }

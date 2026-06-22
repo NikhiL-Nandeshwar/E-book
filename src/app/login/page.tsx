@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Eye, EyeOff, Library, LockKeyhole, Mail } from 'lucide-react'
 
-import { useDemo } from '@/src/components/demo-provider'
+import { useDemo } from '@/src/components/custom/demo-provider'
 import { Badge } from '@/src/components/ui/badge'
 import { Button } from '@/src/components/ui/button'
 import { Card } from '@/src/components/ui/card'

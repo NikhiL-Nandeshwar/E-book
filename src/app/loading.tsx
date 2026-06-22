@@ -1,5 +1,5 @@
-import { Header } from '@/src/components/header'
-import { SiteFooter } from '@/src/components/site-footer'
+import { Header } from '@/src/components/custom/header'
+import { SiteFooter } from '@/src/components/custom/site-footer'
 import { Skeleton } from '@/src/components/ui/skeleton'
 
 export default function Loading() {

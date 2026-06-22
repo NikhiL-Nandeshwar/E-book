@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react'
 import { BookOpen, ChevronLeft, ChevronRight, Lock, Maximize, Minimize, Minus, Plus, RefreshCw, X } from 'lucide-react'
 import { toast } from 'sonner'
 
-import { useDemo } from '@/src/components/demo-provider'
+import { useDemo } from '@/src/components/custom/demo-provider'
 import { Button } from '@/src/components/ui/button'
 import { Card } from '@/src/components/ui/card'
 import { getBookBySlugApi, toCatalogBookFromDetail } from '@/src/lib/book-api'

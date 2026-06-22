@@ -14,8 +14,8 @@ import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
-import { Header } from '@/src/components/header'
-import { SiteFooter } from '@/src/components/site-footer'
+import { Header } from '@/src/components/custom/header'
+import { SiteFooter } from '@/src/components/custom/site-footer'
 import { Badge } from '@/src/components/ui/badge'
 import { Button } from '@/src/components/ui/button'
 import { Card } from '@/src/components/ui/card'
@@ -23,7 +23,7 @@ import { getBookBySlugApi, toCatalogBookFromDetail } from '@/src/lib/book-api'
 import { findLocalBookBySlug } from '@/src/lib/local-books'
 import { upsertCatalogBooks, type CatalogBook } from '@/src/lib/book-catalog'
 import { createOrderApi, verifyPaymentApi } from '@/src/lib/order-api'
-import { useDemo } from '@/src/components/demo-provider'
+import { useDemo } from '@/src/components/custom/demo-provider'
 
 declare global {
   interface Window {

@@ -3,9 +3,11 @@ import { Roboto, Manrope } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { Toaster } from 'sonner'
 
-import { DemoProvider } from '@/src/components/demo-provider'
-import { ThemeProvider } from '@/src/components/theme-provider'
+import { DemoProvider } from '@/src/components/custom/demo-provider'
+import { ThemeProvider } from '@/src/components/custom/theme-provider'
 import './globals.css'
+import { Header } from '../components/custom/header'
+import Footer from '../components/custom/footer'
 
 const manrope = Manrope({
   subsets: ['latin'],
@@ -19,7 +21,7 @@ const roboto = Roboto({
 })
 
 export const metadata: Metadata = {
-  title: 'BookVault | Online Book Management System',
+  title: 'E-Book | Online Book Management System',
   description:
     'A modern static ebook platform demo built with Next.js, TypeScript, Tailwind CSS, and shadcn/ui.',
   icons: {
@@ -37,18 +39,30 @@ export default function RootLayout({
       <body className={`${manrope.variable} ${roboto.variable} font-sans antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <DemoProvider>
-            {children}
-            <Toaster
-              position="top-right"
-              richColors
-              toastOptions={{
-                style: {
-                  borderRadius: '20px',
-                },
-              }}
-            />
+            <div className="flex min-h-screen flex-col">
+
+              <Header />
+
+              <main className="flex-1">
+                {children}
+              </main>
+
+              <Footer />
+
+              <Toaster
+                position="top-right"
+                richColors
+                toastOptions={{
+                  style: {
+                    borderRadius: '20px',
+                  },
+                }}
+              />
+
+            </div>
           </DemoProvider>
         </ThemeProvider>
+
         <Analytics />
       </body>
     </html>

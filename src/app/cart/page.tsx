@@ -4,9 +4,9 @@ import Link from 'next/link'
 import { ArrowRight, CreditCard, ShoppingBag, Trash2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
-import { Header } from '@/src/components/header'
-import { SiteFooter } from '@/src/components/site-footer'
-import { useDemo } from '@/src/components/demo-provider'
+import { Header } from '@/src/components/custom/header'
+import { SiteFooter } from '@/src/components/custom/site-footer'
+import { useDemo } from '@/src/components/custom/demo-provider'
 import {
   Empty,
   EmptyContent,

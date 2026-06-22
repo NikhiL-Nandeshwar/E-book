@@ -5,8 +5,8 @@ import Link from 'next/link'
 import { BookOpenText, Pencil, Plus, Sparkles, Power, ShieldAlert, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
 
-import { Header } from '@/src/components/header'
-import { SiteFooter } from '@/src/components/site-footer'
+import { Header } from '@/src/components/custom/header'
+import { SiteFooter } from '@/src/components/custom/site-footer'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -39,7 +39,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/src/components/ui/table'
-import { useDemo } from '@/src/components/demo-provider'
+import { useDemo } from '@/src/components/custom/demo-provider'
 import { getCategoryDropdownApi } from '@/src/lib/category-api'
 import { getAuthorDropdownApi } from '@/src/lib/author-api'
 import {

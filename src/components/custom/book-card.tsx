@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { BookOpen, Sparkles, Star } from 'lucide-react'
 
-import { useDemo } from '@/src/components/demo-provider'
+import { useDemo } from '@/src/components/custom/demo-provider'
 import { Badge } from '@/src/components/ui/badge'
 import { Button } from '@/src/components/ui/button'
 import { Card, CardContent } from '@/src/components/ui/card'
