@@ -4,7 +4,7 @@ import Link from 'next/link';
 export function Welcome() {
       return (
 
-    <section className="bg-slate-50">
+    <section className="flex min-h-[60vh] items-center bg-slate-50">
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-8 px-4 py-10 md:flex-row">
             {/* Left - Logo */}
             <div className="flex justify-center">

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Eye, EyeOff, Library, LockKeyhole, Mail } from 'lucide-react'
-
+import Image from 'next/image'
 import { useDemo } from '@/src/components/custom/demo-provider'
 import { Badge } from '@/src/components/ui/badge'
 import { Button } from '@/src/components/ui/button'
@@ -46,64 +46,35 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="min-h-screen px-4 py-6 sm:px-6 lg:px-8">
-      <div className="mx-auto grid min-h-[calc(100vh-3rem)] max-w-6xl gap-6 lg:grid-cols-[0.95fr_1.05fr]">
+    <main className="min-h-screen px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto grid min-h-[calc(100vh-3rem)] max-w-7xl gap-12 lg:grid-cols-[1fr_1fr]">
         {/* ── Left column ─────────────────────────────────────────────── */}
-        <section className="section-shell hidden flex-col justify-between p-8 lg:flex">
-          <div>
-            <Badge className="rounded-full bg-[color:var(--color-brand-faint)] px-4 py-1.5 text-[color:var(--color-brand-strong)]">
-              BookVault
-            </Badge>
-            <h1 className="mt-6 font-display text-6xl leading-none">
-              Welcome to your digital reading lounge.
-            </h1>
-            <p className="mt-4 max-w-xl text-lg leading-8 text-muted-foreground">
-              Sign in to access your library, continue reading, and discover new titles curated
-              just for you.
-            </p>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-3">
-            <Card className="rounded-[28px] border-white/70 bg-white/85 p-5 shadow-none">
-              <Mail className="size-5 text-[color:var(--color-brand)]" />
-              <p className="mt-4 font-semibold">Secure sign-in</p>
-              <p className="mt-2 text-sm text-muted-foreground">
-                JWT-authenticated access to your account and library.
-              </p>
-            </Card>
-            <Card className="rounded-[28px] border-white/70 bg-white/85 p-5 shadow-none">
-              <Library className="size-5 text-[color:var(--color-brand)]" />
-              <p className="mt-4 font-semibold">Your library</p>
-              <p className="mt-2 text-sm text-muted-foreground">
-                All purchased titles available instantly after login.
-              </p>
-            </Card>
-            <Card className="rounded-[28px] border-white/70 bg-white/85 p-5 shadow-none">
-              <LockKeyhole className="size-5 text-[color:var(--color-brand)]" />
-              <p className="mt-4 font-semibold">Protected reader</p>
-              <p className="mt-2 text-sm text-muted-foreground">
-                Secure PDF viewing powered by your access token.
-              </p>
-            </Card>
-          </div>
+        <section className="section-shell relative hidden overflow-hidden bg-[#f6e6ca] p-6 lg:flex">
+          <Image
+            src="/login_banner_1.png"
+            alt="ई-पुस्तक विभाग"
+            fill
+            priority
+            className="object-cover object-[center_-76px]"
+          />
         </section>
 
         {/* ── Right column: form ──────────────────────────────────────── */}
         <section className="section-shell flex items-center justify-center p-5 sm:p-8">
           <Card className="w-full max-w-lg rounded-[32px] border-white/70 bg-white/90 p-6 shadow-none sm:p-8">
             <Badge className="rounded-full bg-[color:var(--color-brand-faint)] px-4 py-1.5 text-[color:var(--color-brand-strong)]">
-              Sign in
+              🔐 लॉगिन
             </Badge>
-            <h2 className="mt-5 text-3xl font-semibold tracking-tight sm:text-4xl">
-              Sign in to BookVault
+            <h2 className="mt-5 text-[#7A2E92] text-3xl font-semibold tracking-tight sm:text-3xl">
+              आपल्या खात्यामध्ये लॉगिन करा
             </h2>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">
-              Enter the credentials you registered with to access your account.
+              आपले नोंदणीकृत ई-मेल व पासवर्ड वापरून लॉगिन करा.
             </p>
 
             <form onSubmit={handleSubmit} className="mt-8 space-y-5">
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">ई-मेल</Label>
                 <Input
                   id="email"
                   type="email"
@@ -117,12 +88,12 @@ export default function LoginPage() {
               </div>
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="password">पासवर्ड</Label>
                   <Link
                     href="/forgot-password"
                     className="text-xs text-[color:var(--color-brand)] hover:underline"
                   >
-                    Forgot password?
+                    पासवर्ड विसरलात?
                   </Link>
                 </div>
 
@@ -133,7 +104,7 @@ export default function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="h-12 rounded-2xl border-white bg-[#fdfaf5] pr-12"
-                    placeholder="Your password"
+                    placeholder="आपला पासवर्ड प्रविष्ट करा"
                     autoComplete="current-password"
                     disabled={isLoading}
                   />
@@ -155,14 +126,17 @@ export default function LoginPage() {
                 className="h-12 w-full rounded-full bg-[linear-gradient(135deg,var(--color-brand),var(--color-brand-strong))] text-white shadow-lg shadow-[color:var(--color-brand-soft)]"
                 disabled={isLoading}
               >
-                {isLoading ? 'Signing in…' : 'Sign in'}
+                {isLoading ? 'लॉगिन सुरू आहे...' : 'लॉगिन करा'}
               </Button>
             </form>
 
             <p className="mt-6 text-center text-sm text-muted-foreground">
-              New to BookVault?{' '}
-              <Link href="/register" className="font-semibold text-[color:var(--color-brand)]">
-                Create an account
+              नवीन वापरकर्ता आहात?{' '}
+              <Link
+                href="/register"
+                className="font-semibold text-[#7A2E92]"
+              >
+                नवीन खाते तयार करा
               </Link>
             </p>
           </Card>

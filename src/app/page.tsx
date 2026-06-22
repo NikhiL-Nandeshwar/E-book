@@ -1,3 +1,4 @@
+import { LatestBooks } from "../components/custom/latest-book"
 import { Welcome } from "../components/custom/welcome"
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
   return (
     <>
       <Welcome />
+      <LatestBooks />
     </>
   )
 }

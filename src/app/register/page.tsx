@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { BookOpen, Eye, EyeOff, ShieldCheck, Sparkles } from 'lucide-react'
-
+import Image from 'next/image'
 import { Badge } from '@/src/components/ui/badge'
 import { Button } from '@/src/components/ui/button'
 import { Card } from '@/src/components/ui/card'
@@ -28,23 +28,23 @@ export default function RegisterPage() {
     event.preventDefault()
 
     if (!fullName || !email || !mobile || !password || !confirmPassword) {
-      toast.error('Please complete all fields.')
+      toast.error('कृपया सर्व माहिती भरा.')
       return
     }
     if (!email.includes('@')) {
-      toast.error('Please enter a valid email address.')
+      toast.error('वैध ई-मेल प्रविष्ट करा.')
       return
     }
     if (!/^\d{10}$/.test(mobile)) {
-      toast.error('Mobile number must be exactly 10 digits.')
+      toast.error('मोबाईल क्रमांक १० अंकी असावा.')
       return
     }
     if (password.length < 6) {
-      toast.error('Password must be at least 6 characters.')
+      toast.error('पासवर्ड किमान ६ अक्षरांचा असावा.')
       return
     }
     if (password !== confirmPassword) {
-      toast.error('Passwords do not match.')
+      toast.error('दोन्ही पासवर्ड समान नाहीत.')
       return
     }
 
@@ -52,13 +52,13 @@ export default function RegisterPage() {
     try {
       const res = await registerApi({ fullName, email, mobile, password, confirmPassword })
       if (res.success) {
-        toast.success('Account created! Please verify your email with the OTP we sent.')
+        toast.success('खाते तयार झाले. OTP तपासा.')
         router.push(`/verify-otp?email=${encodeURIComponent(email)}`)
       } else {
-        toast.error(res.message || 'Registration failed. Please try again.')
+        toast.error(res.message || 'नोंदणी अयशस्वी. कृपया पुन्हा प्रयत्न करा.')
       }
     } catch {
-      toast.error('Network error. Check your connection and try again.')
+      toast.error('नेटवर्क त्रुटी. कृपया पुन्हा प्रयत्न करा.')
     } finally {
       setIsLoading(false)
     }
@@ -66,24 +66,25 @@ export default function RegisterPage() {
 
   return (
     <main className="min-h-screen px-4 py-6 sm:px-6 lg:px-8">
-      <div className="mx-auto grid min-h-[calc(100vh-3rem)] max-w-6xl gap-6 lg:grid-cols-[1.02fr_0.98fr]">
+      <div className="mx-auto grid min-h-[calc(100vh-3rem)] max-w-6xl gap-12 lg:grid-cols-[0.95fr_1.05fr]">
         {/* ── Left column: form ───────────────────────────────────────── */}
         <section className="section-shell flex items-center justify-center p-5 sm:p-8">
           <Card className="w-full max-w-lg rounded-[32px] border-white/70 bg-white/90 p-6 shadow-none sm:p-8">
             <Badge className="rounded-full bg-[color:var(--color-brand-faint)] px-4 py-1.5 text-[color:var(--color-brand-strong)]">
-              Create account
+              📝 नोंदणी
             </Badge>
-            <h2 className="mt-5 text-3xl font-semibold tracking-tight sm:text-4xl">
-              Join BookVault
+            <h2 className="mt-5 text-3xl text-[#7A2E92] font-semibold tracking-tight sm:text-4xl">
+              नवीन खाते तयार करा
             </h2>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">
-              Fill in your details below. We&apos;ll send a one-time password to verify your email.
+              आपली माहिती भरून खाते तयार करा.
+              नोंदणीनंतर OTP द्वारे ई-मेल पडताळणी केली जाईल.
             </p>
 
             <form onSubmit={handleSubmit} className="mt-8 space-y-4">
               {/* Full Name */}
               <div className="space-y-2">
-                <Label htmlFor="fullName">Full Name</Label>
+                <Label htmlFor="fullName">पूर्ण नाव</Label>
                 <Input
                   id="fullName"
                   value={fullName}
@@ -97,7 +98,7 @@ export default function RegisterPage() {
 
               {/* Email */}
               <div className="space-y-2">
-                <Label htmlFor="reg-email">Email</Label>
+                <Label htmlFor="reg-email">ई-मेल</Label>
                 <Input
                   id="reg-email"
                   type="email"
@@ -112,7 +113,7 @@ export default function RegisterPage() {
 
               {/* Mobile */}
               <div className="space-y-2">
-                <Label htmlFor="mobile">Mobile Number</Label>
+                <Label htmlFor="mobile">मोबाईल क्रमांक</Label>
                 <Input
                   id="mobile"
                   type="tel"
@@ -127,7 +128,7 @@ export default function RegisterPage() {
 
               {/* Password */}
               <div className="space-y-2">
-                <Label htmlFor="reg-password">Password</Label>
+                <Label htmlFor="reg-password">पासवर्ड</Label>
                 <div className="relative">
                   <Input
                     id="reg-password"
@@ -135,7 +136,7 @@ export default function RegisterPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="h-12 rounded-2xl border-white bg-[#fdfaf5] pr-12"
-                    placeholder="Min. 6 characters"
+                    placeholder="किमान ६ अक्षरे"
                     autoComplete="new-password"
                     disabled={isLoading}
                   />
@@ -155,7 +156,7 @@ export default function RegisterPage() {
 
               {/* Confirm Password */}
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <Label htmlFor="confirmPassword">पासवर्ड पुन्हा प्रविष्ट करा</Label>
                 <div className="relative">
                   <Input
                     id="confirmPassword"
@@ -163,7 +164,7 @@ export default function RegisterPage() {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     className="h-12 rounded-2xl border-white bg-[#fdfaf5] pr-12"
-                    placeholder="Repeat your password"
+                    placeholder="पासवर्ड पुन्हा प्रविष्ट करा"
                     autoComplete="new-password"
                     disabled={isLoading}
                   />
@@ -183,60 +184,32 @@ export default function RegisterPage() {
 
               <Button
                 type="submit"
-                className="h-12 w-full rounded-full bg-[linear-gradient(135deg,var(--color-brand),var(--color-brand-strong))] text-white shadow-lg shadow-[color:var(--color-brand-soft)]"
+                className="h-12 w-full rounded-full bg-[#7A2E92] hover:bg-[#69267d] text-white"
                 disabled={isLoading}
               >
-                {isLoading ? 'Creating account…' : 'Create account'}
+                {isLoading ? 'नोंदणी सुरू आहे...' : 'नोंदणी करा'}
               </Button>
             </form>
 
             <p className="mt-6 text-center text-sm text-muted-foreground">
-              Already have an account?{' '}
+              आधीपासून खाते आहे?{' '}
               <Link href="/login" className="font-semibold text-[color:var(--color-brand)]">
-                Sign in
+                लॉगिन करा
               </Link>
             </p>
           </Card>
         </section>
 
         {/* ── Right column ─────────────────────────────────────────────── */}
-        <section className="section-shell hidden flex-col justify-between p-8 lg:flex">
-          <div>
-            <Badge className="rounded-full bg-[color:var(--color-brand-faint)] px-4 py-1.5 text-[color:var(--color-brand-strong)]">
-              Onboard new readers
-            </Badge>
-            <h1 className="mt-6 font-display text-6xl leading-none">
-              A warm first impression for your reading journey.
-            </h1>
-            <p className="mt-4 max-w-xl text-lg leading-8 text-muted-foreground">
-              Registration is quick and secure. Once your email is verified you get instant
-              access to your library and the full BookVault experience.
-            </p>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-3">
-            <Card className="rounded-[28px] border-white/70 bg-white/85 p-5 shadow-none">
-              <Sparkles className="size-5 text-[color:var(--color-brand)]" />
-              <p className="mt-4 font-semibold">Premium experience</p>
-              <p className="mt-2 text-sm text-muted-foreground">
-                A polished platform that feels launch-ready from day one.
-              </p>
-            </Card>
-            <Card className="rounded-[28px] border-white/70 bg-white/85 p-5 shadow-none">
-              <ShieldCheck className="size-5 text-[color:var(--color-brand)]" />
-              <p className="mt-4 font-semibold">Email verification</p>
-              <p className="mt-2 text-sm text-muted-foreground">
-                OTP verification keeps every account trusted and secure.
-              </p>
-            </Card>
-            <Card className="rounded-[28px] border-white/70 bg-white/85 p-5 shadow-none">
-              <BookOpen className="size-5 text-[color:var(--color-brand)]" />
-              <p className="mt-4 font-semibold">Library ready</p>
-              <p className="mt-2 text-sm text-muted-foreground">
-                Purchased titles appear in your library the moment you sign in.
-              </p>
-            </Card>
-          </div>
+        <section className="section-shell relative hidden overflow-hidden bg-[#f6e6ca] p-6 lg:flex">
+          <Image
+            src="/signup_banner.png"
+            alt="नवीन खाते तयार करा"
+            fill
+            priority
+            className="object-cover object-top"
+            // style={{ objectPosition: 'center -40px' }}
+          />
         </section>
       </div>
     </main>
