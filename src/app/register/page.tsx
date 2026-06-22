@@ -120,7 +120,7 @@ export default function RegisterPage() {
                   value={mobile}
                   onChange={(e) => setMobile(e.target.value.replace(/\D/g, '').slice(0, 10))}
                   className="h-12 rounded-2xl border-white bg-[#fdfaf5]"
-                  placeholder="10-digit mobile number"
+                  placeholder="१० अंकी नंबर"
                   autoComplete="tel"
                   disabled={isLoading}
                 />

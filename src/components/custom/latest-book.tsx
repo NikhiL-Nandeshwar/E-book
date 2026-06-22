@@ -1,10 +1,6 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { Book } from '@/src/types/api.types';
-import { getBooks } from '@/src/actions/api/books.actions';
 import { Card, CardContent, } from '@/src/components/ui/card';
 import { BookOpen } from 'lucide-react';
 import { BookCover } from './book-cover';
