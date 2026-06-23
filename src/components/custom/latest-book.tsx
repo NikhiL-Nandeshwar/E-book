@@ -2,11 +2,13 @@
 
 import Link from 'next/link';
 import { Card, CardContent, } from '@/src/components/ui/card';
-import { BookOpen } from 'lucide-react';
+import { BookOpen, Search } from 'lucide-react';
 import { BookCover } from './book-cover';
 import useSWR from 'swr';
 import { latestBooksFetcher } from '@/src/lib/fetchers/book.fetcher';
 import { Skeleton } from '@/src/components/ui/skeleton';
+import { useState } from 'react';
+import { Input } from '../ui/input';
 
 export function LatestBooks() {
     const {
@@ -17,11 +19,30 @@ export function LatestBooks() {
         revalidateOnFocus: false,
     });
 
+    const [searchTerm, setSearchTerm] = useState('');
+    const filteredBooks = books.filter(book =>
+        book.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    {
+        filteredBooks.length === 0 && (
+            <div className="col-span-full py-16 text-center">
+                <p className="text-lg font-medium text-slate-600">
+                    कोणतेही पुस्तक आढळले नाही
+                </p>
+
+                <p className="mt-2 text-slate-500">
+                    दुसरे नाव वापरून शोधण्याचा प्रयत्न करा.
+                </p>
+            </div>
+        )
+    }
+
     return (
         <section className="bg-gradient-to-r from-transparent via-[#7A2E92]/20 to-transparent px-10 py-14">
             <div className="mx-auto max-w-7xl rounded-[40px] border border-white/70 bg-white/60 p-10 backdrop-blur-sm">
                 {/* Section Header */}
-                <div className="mb-10 flex items-center justify-between">
+                <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
                     <div>
                         <p className="text-lg font-medium text-[#7A2E92]">
                             📚 नवीन पुस्तके
@@ -36,47 +57,72 @@ export function LatestBooks() {
                         </p>
                     </div>
 
-                    <Link
-                        href="/books"
-                        className="hidden rounded-xl bg-[#7A2E92] px-5 py-3 font-medium text-white transition hover:bg-[#69267d] md:flex md:items-center"
-                    >
-                        सर्व पुस्तके पहा →
-                    </Link>
+                    <div className="flex flex-col gap-3 sm:flex-row">
+                        <div className="relative min-w-[300px]">
+                            <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+
+                            <Input
+                                placeholder="पुस्तकाचे नाव शोधा..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="h-13 rounded-xl border-[#7A2E92]/30 bg-white pl-10"
+                            />
+                        </div>
+
+                        <Link
+                            href="/books"
+                            className="rounded-xl bg-[#7A2E92] px-5 py-3 font-medium text-white transition hover:bg-[#69267d]"
+                        >
+                            सर्व पुस्तके पहा →
+                        </Link>
+                    </div>
                 </div>
 
                 {/* Books Grid */}
-                    {isLoading ? (
-                        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                            {Array.from({ length: 4 }).map((_, i) => (
-                                <Card
-                                    key={i}
-                                    className="overflow-hidden rounded-3xl border-0 bg-white shadow-md"
-                                >
-                                    <Skeleton className="h-80 w-full" />
+                {isLoading ? (
+                    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                        {Array.from({ length: 4 }).map((_, i) => (
+                            <Card
+                                key={i}
+                                className="overflow-hidden rounded-3xl border-0 bg-white shadow-md"
+                            >
+                                <Skeleton className="h-80 w-full" />
 
-                                    <CardContent className="space-y-4 p-5">
-                                        <Skeleton className="h-4 w-24" />
-                                        <Skeleton className="h-6 w-full" />
-                                        <Skeleton className="h-6 w-3/4" />
-                                        <Skeleton className="h-4 w-32" />
+                                <CardContent className="space-y-4 p-5">
+                                    <Skeleton className="h-4 w-24" />
+                                    <Skeleton className="h-6 w-full" />
+                                    <Skeleton className="h-6 w-3/4" />
+                                    <Skeleton className="h-4 w-32" />
 
-                                        <div className="flex justify-between">
-                                            <Skeleton className="h-7 w-20" />
-                                            <Skeleton className="h-5 w-12" />
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            ))}
-                        </div>
-                    ) : error ? (
-                        <div className="py-10 text-center text-slate-500">
-                            पुस्तके लोड करण्यात अडचण आली.
-                        </div>
-                    ) : (
-                        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                            {books.map((book) => (
+                                    <div className="flex justify-between">
+                                        <Skeleton className="h-7 w-20" />
+                                        <Skeleton className="h-5 w-12" />
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>
+                ) : error ? (
+                    <div className="py-10 text-center text-slate-500">
+                        पुस्तके लोड करण्यात अडचण आली.
+                    </div>
+                ) : (
+                    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                        {filteredBooks.length === 0 ? (
+                            <div className="col-span-full py-16 text-center">
+                                <p className="text-lg font-medium text-slate-600">
+                                    कोणतेही पुस्तक आढळले नाही
+                                </p>
+
+                                <p className="mt-2 text-slate-500">
+                                    दुसरे नाव वापरून शोधण्याचा प्रयत्न करा.
+                                </p>
+                            </div>
+                        ) : (
+
+                            filteredBooks.map((book) => (
                                 <Link key={book.bookId} href={`/books/${book.slug}`}>
-                                    <Card className="group overflow-hidden rounded-3xl border-0 bg-white shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+                                    <Card className="group overflow-hidden rounded-3xl border-[#7A2E92]/20 bg-white shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
                                         <div className="relative h-80 overflow-hidden bg-gradient-to-b from-slate-100 to-slate-200">
                                             <BookCover
                                                 src={book.coverImageUrl}
@@ -117,9 +163,10 @@ export function LatestBooks() {
 
                                     </Card>
                                 </Link>
-                            ))}
-                        </div>
-                    )}
+                            ))
+                        )}
+                    </div>
+                )}
 
 
                 {/* Mobile Button */}
