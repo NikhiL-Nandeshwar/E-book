@@ -65,7 +65,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <main className="min-h-screen px-4 py-6 sm:px-6 lg:px-8">
+    <main className="min-h-screen px-4 py-10 sm:px-6 lg:px-8">
       <div className="mx-auto grid min-h-[calc(100vh-3rem)] max-w-6xl gap-12 lg:grid-cols-[0.95fr_1.05fr]">
         {/* ── Left column: form ───────────────────────────────────────── */}
         <section className="section-shell flex items-center justify-center p-5 sm:p-8">
@@ -76,7 +76,7 @@ export default function RegisterPage() {
             <h2 className="mt-5 text-3xl text-[#7A2E92] font-semibold tracking-tight sm:text-4xl">
               नवीन खाते तयार करा
             </h2>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">
+            <p className="mt-3 text-md leading-6 text-muted-foreground">
               आपली माहिती भरून खाते तयार करा.
               नोंदणीनंतर OTP द्वारे ई-मेल पडताळणी केली जाईल.
             </p>
@@ -191,7 +191,7 @@ export default function RegisterPage() {
               </Button>
             </form>
 
-            <p className="mt-6 text-center text-sm text-muted-foreground">
+            <p className="mt-6 text-center text-md text-muted-foreground">
               आधीपासून खाते आहे?{' '}
               <Link href="/login" className="font-semibold text-[color:var(--color-brand)]">
                 लॉगिन करा

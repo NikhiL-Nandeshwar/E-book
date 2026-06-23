@@ -46,7 +46,7 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="min-h-screen px-4 py-8 sm:px-6 lg:px-8">
+    <main className="min-h-screen px-4 py-10 sm:px-6 lg:px-8">
       <div className="mx-auto grid min-h-[calc(100vh-3rem)] max-w-7xl gap-12 lg:grid-cols-[1fr_1fr]">
         {/* ── Left column ─────────────────────────────────────────────── */}
         <section className="section-shell relative hidden overflow-hidden bg-[#f6e6ca] p-6 lg:flex">
@@ -68,7 +68,7 @@ export default function LoginPage() {
             <h2 className="mt-5 text-[#7A2E92] text-3xl font-semibold tracking-tight sm:text-3xl">
               आपल्या खात्यामध्ये लॉगिन करा
             </h2>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">
+            <p className="mt-3 text-md leading-6 text-muted-foreground">
               आपले नोंदणीकृत ई-मेल व पासवर्ड वापरून लॉगिन करा.
             </p>
 
@@ -91,7 +91,7 @@ export default function LoginPage() {
                   <Label htmlFor="password">पासवर्ड</Label>
                   <Link
                     href="/forgot-password"
-                    className="text-xs text-[color:var(--color-brand)] hover:underline"
+                    className="text-sm text-[color:var(--color-brand)] hover:underline"
                   >
                     पासवर्ड विसरलात?
                   </Link>
