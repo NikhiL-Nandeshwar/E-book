@@ -24,7 +24,7 @@ export default function ForgotPasswordPage() {
       toast.error('Please enter your email address.')
       return
     }
-    if (!email.includes('@/src')) {
+    if (!email.includes('@')) {
       toast.error('Please enter a valid email address.')
       return
     }
@@ -54,11 +54,11 @@ export default function ForgotPasswordPage() {
             <Badge className="rounded-full bg-[color:var(--color-brand-faint)] px-4 py-1.5 text-[color:var(--color-brand-strong)]">
               🔑 खाते पुनर्प्राप्ती
             </Badge>
-            <h1 className="mt-7 font-display text-4xl leading-none">
+            <h1 className="mt-7 font-display text-[#7A2E92] text-4xl leading-none">
               पासवर्ड विसरलात? काळजी करू नका.
             </h1>
             <p className="mt-4 max-w-xl text-lg leading-8 text-muted-foreground">
-              आपल्या नोंदणीकृत ई-मेलवर पासवर्ड बदलण्यासाठी लिंक पाठविली जाईल. 
+              आपल्या नोंदणीकृत ई-मेलवर पासवर्ड बदलण्यासाठी लिंक पाठविली जाईल.
               त्या लिंकद्वारे नवीन पासवर्ड तयार करू शकता.
             </p>
           </div>
@@ -95,16 +95,18 @@ export default function ForgotPasswordPage() {
               /* ── Success state ─────────────────────────────────────────── */
               <div className="flex flex-col items-center py-6 text-center">
                 <div className="flex size-16 items-center justify-center rounded-full bg-[color:var(--color-brand-faint)]">
-                  <MailCheck className="size-8 text-[color:var(--color-brand-strong)]" />
+                  <MailCheck className="size-8 text-[#7A2E92]/70" />
                 </div>
-                <h2 className="mt-5 text-2xl font-semibold tracking-tight">ई-मेल तपासा</h2>
-                <p className="mt-3 max-w-sm text-sm leading-6 text-muted-foreground">
-                 आपल्या ई-मेलवर पासवर्ड बदलण्यासाठी लिंक पाठविली आहे.
-                  <span className="font-medium text-foreground">{email}</span>. 
-                  लिंक उघडून नवीन पासवर्ड तयार करा.
+                <h2 className="mt-5 text-2xl text-[#7A2E92] font-semibold tracking-tight">ई-मेल तपासा</h2>
+                <p className="mt-3 max-w-sm text-md leading-6 text-muted-foreground">
+                  आपल्या ई-मेलवर पासवर्ड बदलण्यासाठी लिंक पाठविली आहे{' '}
+                  <span className="font-medium text-foreground">
+                    {email}
+                  </span>
+                  . लिंक उघडून नवीन पासवर्ड तयार करा.
                 </p>
-                <p className="mt-4 text-xs text-muted-foreground">
-                  ई-मेल दिसत नसल्यास स्पॅम फोल्डर तपासा.
+                <p className="mt-4 text-sm text-muted-foreground">
+                  ई-मेल दिसत नसल्यास स्पॅम फोल्डर तपासा.{' '}
                   <button
                     className="font-semibold text-[color:var(--color-brand)] hover:underline"
                     onClick={() => setSubmitted(false)}
@@ -116,10 +118,10 @@ export default function ForgotPasswordPage() {
                 <Link href="/login" className="mt-8 w-full">
                   <Button
                     variant="outline"
-                    className="w-full rounded-full border-[color:var(--color-brand-soft)] text-[color:var(--color-brand-strong)]"
+                    className="w-full rounded-full bg-[#7A2E92]/20 text-[#7A2E92] hover:bg-[#7A2E92]/30"
                   >
                     <ArrowLeft className="mr-2 size-4" />
-                    ← लॉगिन पृष्ठावर जा
+                    लॉगिन पृष्ठावर जा
                   </Button>
                 </Link>
               </div>
@@ -162,7 +164,7 @@ export default function ForgotPasswordPage() {
                 </form>
 
                 <p className="mt-6 text-center text-md text-muted-foreground">
-                   पासवर्ड आठवला?{' '}
+                  पासवर्ड आठवला?{' '}
                   <Link href="/login" className="font-semibold text-[color:var(--color-brand)]">
                     लॉगिन करा
                   </Link>

@@ -46,7 +46,15 @@ function ResetPasswordForm() {
     return score
   })()
 
-  const strengthLabel = ['', 'Weak', 'Fair', 'Good', 'Strong', 'Very strong'][strength]
+  const strengthLabel = [[
+    '',
+    'कमकुवत',
+    'सामान्य',
+    'चांगला',
+    'मजबूत',
+    'अतिशय मजबूत'
+  ]][strength]
+
   const strengthColor = ['', '#ef4444', '#f97316', '#eab308', '#22c55e', '#10b981'][strength]
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -70,7 +78,7 @@ function ResetPasswordForm() {
       const res = await resetPasswordApi({ token, newPassword, confirmPassword })
       if (res.success) {
         setSuccess(true)
-        toast.success('Password reset successfully!')
+        toast.success('पासवर्ड यशस्वीरित्या बदलला!')
       } else {
         toast.error(res.message || 'Reset failed. The link may have expired.')
       }
@@ -94,44 +102,44 @@ function ResetPasswordForm() {
                   <CheckCircle2 className="size-8 text-emerald-600" />
                 </div>
                 <h2 className="mt-5 text-2xl font-semibold tracking-tight">
-                  Password updated!
+                  पासवर्ड यशस्वीरित्या बदलला!
                 </h2>
                 <p className="mt-3 max-w-sm text-sm leading-6 text-muted-foreground">
-                  Your password has been reset successfully. You can now sign in with your new
-                  password.
+                  आपला पासवर्ड यशस्वीरित्या अद्ययावत झाला आहे.
+                  आता नवीन पासवर्ड वापरून लॉगिन करू शकता.
                 </p>
                 <Button
                   className="mt-8 h-12 w-full rounded-full bg-[linear-gradient(135deg,var(--color-brand),var(--color-brand-strong))] text-white shadow-lg shadow-[color:var(--color-brand-soft)]"
                   onClick={() => router.push('/login')}
                 >
-                  Sign in now
+                  आता लॉगिन करा
                 </Button>
               </div>
             ) : (
               /* ── Form state ────────────────────────────────────────── */
               <>
                 <Badge className="rounded-full bg-[color:var(--color-brand-faint)] px-4 py-1.5 text-[color:var(--color-brand-strong)]">
-                  Reset password
+                  🔑 नवीन पासवर्ड
                 </Badge>
                 <h2 className="mt-5 text-3xl font-semibold tracking-tight sm:text-4xl">
-                  Set a new password
+                  नवीन पासवर्ड तयार करा
                 </h2>
                 <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                  Choose a strong password you haven&apos;t used before. It must be at least 6
-                  characters long.
+                  आपल्या खात्यासाठी सुरक्षित नवीन पासवर्ड निवडा.
+                  किमान ६ अक्षरे असलेला पासवर्ड प्रविष्ट करा.
                 </p>
 
                 <form onSubmit={handleSubmit} className="mt-8 space-y-5">
                   {/* New password */}
                   <div className="space-y-2">
-                    <Label htmlFor="new-password">New password</Label>
+                    <Label htmlFor="new-password">नवीन पासवर्ड</Label>
                     <Input
                       id="new-password"
                       type="password"
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
                       className="h-12 rounded-2xl border-white bg-[#fdfaf5]"
-                      placeholder="Min. 6 characters"
+                      placeholder="किमान ६ अक्षरे"
                       autoComplete="new-password"
                       disabled={isLoading}
                     />
@@ -163,14 +171,14 @@ function ResetPasswordForm() {
 
                   {/* Confirm password */}
                   <div className="space-y-2">
-                    <Label htmlFor="confirm-password">Confirm new password</Label>
+                    <Label htmlFor="confirm-password">पासवर्ड पुन्हा प्रविष्ट करा</Label>
                     <Input
                       id="confirm-password"
                       type="password"
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       className="h-12 rounded-2xl border-white bg-[#fdfaf5]"
-                      placeholder="Repeat your new password"
+                      placeholder="नवीन पासवर्ड पुन्हा प्रविष्ट करा"
                       autoComplete="new-password"
                       disabled={isLoading}
                     />
@@ -183,8 +191,8 @@ function ResetPasswordForm() {
                         }}
                       >
                         {newPassword === confirmPassword
-                          ? '✓ Passwords match'
-                          : '✗ Passwords do not match'}
+                          ? '✓ दोन्ही पासवर्ड समान आहेत'
+                          : '✗ दोन्ही पासवर्ड समान नाहीत'}
                       </p>
                     )}
                   </div>
@@ -194,17 +202,17 @@ function ResetPasswordForm() {
                     className="h-12 w-full rounded-full bg-[linear-gradient(135deg,var(--color-brand),var(--color-brand-strong))] text-white shadow-lg shadow-[color:var(--color-brand-soft)]"
                     disabled={isLoading}
                   >
-                    {isLoading ? 'Resetting password…' : 'Reset password'}
+                    {isLoading ? 'पासवर्ड बदलत आहे...' : 'पासवर्ड बदला'}
                   </Button>
                 </form>
 
                 <p className="mt-6 text-center text-sm text-muted-foreground">
-                  Link expired?{' '}
+                  लिंक कालबाह्य झाली आहे?{' '}
                   <Link
                     href="/forgot-password"
                     className="font-semibold text-[color:var(--color-brand)]"
                   >
-                    Request a new one
+                    नवीन लिंक मिळवा
                   </Link>
                 </p>
               </>
@@ -216,37 +224,45 @@ function ResetPasswordForm() {
         <section className="section-shell hidden flex-col justify-between p-8 lg:flex">
           <div>
             <Badge className="rounded-full bg-[color:var(--color-brand-faint)] px-4 py-1.5 text-[color:var(--color-brand-strong)]">
-              Secure recovery
+              सुरक्षित खाते
             </Badge>
             <h1 className="mt-6 font-display text-6xl leading-none">
-              A strong password keeps your library safe.
+              सुरक्षित पासवर्ड,सुरक्षित खाते
             </h1>
             <p className="mt-4 max-w-xl text-lg leading-8 text-muted-foreground">
-              Your new password is hashed and salted on our servers — it is never stored in
-              plain text. Choose something unique and memorable.
+              मजबूत पासवर्ड आपल्या खात्याचे संरक्षण करतो.
+              सहज लक्षात राहील असा आणि सुरक्षित पासवर्ड निवडा.
             </p>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-3">
             <Card className="rounded-[28px] border-white/70 bg-white/85 p-5 shadow-none">
-              <LockKeyhole className="size-5 text-[color:var(--color-brand)]" />
-              <p className="mt-4 font-semibold">Hashed &amp; salted</p>
+              <LockKeyhole className="size-5 text-[#7A2E92]" />
+              <p className="mt-4 font-semibold">
+                मजबूत पासवर्ड
+              </p>
               <p className="mt-2 text-sm text-muted-foreground">
-                Passwords are never stored in plain text on our servers.
+                आपल्या खात्याच्या सुरक्षिततेसाठी मजबूत पासवर्ड वापरा.
               </p>
             </Card>
+
             <Card className="rounded-[28px] border-white/70 bg-white/85 p-5 shadow-none">
-              <KeyRound className="size-5 text-[color:var(--color-brand)]" />
-              <p className="mt-4 font-semibold">One-time token</p>
+              <KeyRound className="size-5 text-[#7A2E92]" />
+              <p className="mt-4 font-semibold">
+                नवीन प्रवेश
+              </p>
               <p className="mt-2 text-sm text-muted-foreground">
-                The reset token is invalidated the moment your password is updated.
+                नवीन पासवर्डद्वारे पुन्हा आपल्या खात्यात प्रवेश करा.
               </p>
             </Card>
+
             <Card className="rounded-[28px] border-white/70 bg-white/85 p-5 shadow-none">
-              <ShieldCheck className="size-5 text-[color:var(--color-brand)]" />
-              <p className="mt-4 font-semibold">Auto-logout</p>
+              <ShieldCheck className="size-5 text-[#7A2E92]" />
+              <p className="mt-4 font-semibold">
+                सुरक्षित प्रक्रिया
+              </p>
               <p className="mt-2 text-sm text-muted-foreground">
-                After a reset all active sessions are cleared for your protection.
+                पासवर्ड बदलण्याची प्रक्रिया पूर्णपणे सुरक्षित आहे.
               </p>
             </Card>
           </div>
@@ -257,7 +273,6 @@ function ResetPasswordForm() {
 }
 
 // ── Page export with Suspense (required for useSearchParams) ──────────────────
-
 export default function ResetPasswordPage() {
   return (
     <Suspense>
