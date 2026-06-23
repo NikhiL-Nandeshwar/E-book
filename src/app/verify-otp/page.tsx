@@ -90,7 +90,7 @@ function VerifyOtpForm() {
             <Badge className="rounded-full bg-[color:var(--color-brand-faint)] px-4 py-1.5 text-[color:var(--color-brand-strong)]">
               📧 ई-मेल पडताळणी
             </Badge>
-            <h1 className="mt-6 font-display text-6xl leading-none">
+            <h1 className="mt-6 font-display text-5xl leading-none">
               आपले खाते सक्रिय करण्यासाठी
               फक्त एक पाऊल बाकी
             </h1>
