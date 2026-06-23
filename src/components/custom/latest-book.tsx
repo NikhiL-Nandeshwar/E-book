@@ -5,38 +5,38 @@ import { Card, CardContent, } from '@/src/components/ui/card';
 import { BookOpen, Search } from 'lucide-react';
 import { BookCover } from './book-cover';
 import useSWR from 'swr';
-import { latestBooksFetcher } from '@/src/lib/fetchers/book.fetcher';
+import { booksFetcher } from '@/src/lib/fetchers/book.fetcher';
 import { Skeleton } from '@/src/components/ui/skeleton';
 import { useState } from 'react';
 import { Input } from '../ui/input';
 
 export function LatestBooks() {
+    const [page, setPage] = useState(1)
     const {
-        data: books = [],
+        data,
         isLoading,
         error,
-    } = useSWR('latest-books', latestBooksFetcher, {
-        revalidateOnFocus: false,
-    });
+    } = useSWR(
+        ['books', page],
+        ([_, currentPage]) => booksFetcher(currentPage),
+        {
+            revalidateOnFocus: false,
+        }
+    )
 
     const [searchTerm, setSearchTerm] = useState('');
-    const filteredBooks = books.filter(book =>
-        book.title.toLowerCase().includes(searchTerm.toLowerCase())
+    const books = data?.items || []
+
+    const filteredBooks = books.filter((book) =>
+        [
+            book.title,
+            book.authorName,
+            book.categoryName,
+        ]
+            .join(' ')
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase())
     );
-
-    {
-        filteredBooks.length === 0 && (
-            <div className="col-span-full py-16 text-center">
-                <p className="text-lg font-medium text-slate-600">
-                    कोणतेही पुस्तक आढळले नाही
-                </p>
-
-                <p className="mt-2 text-slate-500">
-                    दुसरे नाव वापरून शोधण्याचा प्रयत्न करा.
-                </p>
-            </div>
-        )
-    }
 
     return (
         <section className="bg-gradient-to-r from-transparent via-[#7A2E92]/20 to-transparent px-10 py-14">
