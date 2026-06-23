@@ -25,12 +25,12 @@ export default function LoginPage() {
     event.preventDefault()
 
     if (!email || !password) {
-      toast.error('Please enter your email and password.')
+      toast.error('कृपया तुमचा ईमेल आणि पासवर्ड टाका.')
       return
     }
 
     if (!email.includes('@')) {
-      toast.error('Please enter a valid email address.')
+      toast.error('कृपया योग्य ईमेल पत्ता टाका.')
       return
     }
 

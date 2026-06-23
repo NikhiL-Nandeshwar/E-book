@@ -21,25 +21,30 @@ export default function ForgotPasswordPage() {
     event.preventDefault()
 
     if (!email) {
-      toast.error('Please enter your email address.')
+      toast.error('कृपया तुमचा ईमेल पत्ता प्रविष्ट करा.')
       return
     }
+
     if (!email.includes('@')) {
-      toast.error('Please enter a valid email address.')
+      toast.error('कृपया वैध ईमेल पत्ता प्रविष्ट करा.')
       return
     }
 
     setIsLoading(true)
+
     try {
       const res = await forgotPasswordApi({ email })
+
       if (res.success) {
         setSubmitted(true)
-        toast.success('Reset instructions sent! Check your inbox.')
+        toast.success('पासवर्ड रीसेट करण्याच्या सूचना तुमच्या ईमेलवर पाठवण्यात आल्या आहेत.')
       } else {
-        toast.error(res.message || 'Could not send reset link. Please try again.')
+        toast.error(
+          res.message || 'रीसेट लिंक पाठवता आली नाही. कृपया पुन्हा प्रयत्न करा.'
+        )
       }
     } catch {
-      toast.error('Network error. Check your connection and try again.')
+      toast.error('नेटवर्क त्रुटी. कृपया तुमचे इंटरनेट कनेक्शन तपासा आणि पुन्हा प्रयत्न करा.')
     } finally {
       setIsLoading(false)
     }

@@ -29,7 +29,9 @@ function ResetPasswordForm() {
   // Guard: redirect if no token in URL
   useEffect(() => {
     if (!tokenParam) {
-      toast.error('Invalid or missing reset token. Please request a new link.')
+      toast.error(
+        'रीसेट लिंक अवैध आहे किंवा तिची मुदत संपली आहे. कृपया नवीन लिंकसाठी विनंती करा.'
+      )      
       router.replace('/forgot-password')
     }
   }, [tokenParam, router])
@@ -61,15 +63,17 @@ function ResetPasswordForm() {
     event.preventDefault()
 
     if (!newPassword || !confirmPassword) {
-      toast.error('Please fill in both password fields.')
+      toast.error('कृपया दोन्ही पासवर्ड भरा.')
       return
     }
+
     if (newPassword.length < 6) {
-      toast.error('Password must be at least 6 characters.')
+      toast.error('पासवर्ड किमान ६ अक्षरांचा असणे आवश्यक आहे.')
       return
     }
+
     if (newPassword !== confirmPassword) {
-      toast.error('Passwords do not match.')
+      toast.error('पासवर्ड जुळत नाहीत.')
       return
     }
 
@@ -80,10 +84,12 @@ function ResetPasswordForm() {
         setSuccess(true)
         toast.success('पासवर्ड यशस्वीरित्या बदलला!')
       } else {
-        toast.error(res.message || 'Reset failed. The link may have expired.')
+        toast.error(
+          res.message || 'पासवर्ड रीसेट करण्यात अयशस्वी. लिंकची मुदत संपली असू शकते.'
+        )
       }
     } catch {
-      toast.error('Network error. Check your connection and try again.')
+      toast.error('नेटवर्कमध्ये समस्या आली आहे. कृपया पुन्हा प्रयत्न करा.')
     } finally {
       setIsLoading(false)
     }

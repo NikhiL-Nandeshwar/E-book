@@ -4,7 +4,6 @@ import { Suspense, useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { MailCheck, RefreshCw, ShieldCheck } from 'lucide-react'
-
 import { Badge } from '@/src/components/ui/badge'
 import { Button } from '@/src/components/ui/button'
 import { Card } from '@/src/components/ui/card'
@@ -36,7 +35,7 @@ function VerifyOtpForm() {
   // Guard: redirect away if no email in URL
   useEffect(() => {
     if (!emailParam) {
-      toast.error('No email provided. Please register first.')
+      toast.error('ईमेल माहिती उपलब्ध नाही. कृपया प्रथम नोंदणी करा.')
       router.replace('/register')
     }
   }, [emailParam, router])
@@ -45,7 +44,7 @@ function VerifyOtpForm() {
     event.preventDefault()
 
     if (!otp || otp.length !== 6) {
-      toast.error('Please enter the 6-digit OTP sent to your email.')
+      toast.error('कृपया ईमेलवर पाठवलेला ६ अंकी ओटीपी टाका.')
       return
     }
 
@@ -53,13 +52,13 @@ function VerifyOtpForm() {
     try {
       const res = await verifyOtpApi({ email, otp })
       if (res.success) {
-        toast.success('Email verified successfully! Please sign in.')
+        toast.success('ईमेल यशस्वीरित्या पडताळले गेले! कृपया लॉगिन करा.')
         router.push('/login')
       } else {
-        toast.error(res.message || 'Invalid or expired OTP. Please try again.')
+        toast.error(res.message || 'अवैध किंवा निर्माणाची मुदत संपलेला OTP. कृपया पुन्हा प्रयत्न करा.')
       }
     } catch {
-      toast.error('Network error. Check your connection and try again.')
+      toast.error('नेटवर्कमध्ये समस्या आली आहे. कृपया पुन्हा प्रयत्न करा.')
     } finally {
       setIsVerifying(false)
     }
@@ -70,13 +69,13 @@ function VerifyOtpForm() {
     try {
       const res = await resendOtpApi({ email })
       if (res.success) {
-        toast.success('A new OTP has been sent to your email.')
+        toast.success('नवीन OTP आपल्या ईमेलवर पाठवला गेला.')
         setCooldown(60) // 60-second cooldown
       } else {
-        toast.error(res.message || 'Could not resend OTP. Please try again.')
+        toast.error(res.message || 'OTP पुन्हा पाठवण्यात अयशस्वी. कृपया पुन्हा प्रयत्न करा.')
       }
     } catch {
-      toast.error('Network error. Check your connection and try again.')
+      toast.error('नेटवर्कमध्ये समस्या आली आहे. कृपया पुन्हा प्रयत्न करा.')
     } finally {
       setIsResending(false)
     }
@@ -89,38 +88,40 @@ function VerifyOtpForm() {
         <section className="section-shell hidden flex-col justify-between p-8 lg:flex">
           <div>
             <Badge className="rounded-full bg-[color:var(--color-brand-faint)] px-4 py-1.5 text-[color:var(--color-brand-strong)]">
-              Email verification
+              📧 ई-मेल पडताळणी
             </Badge>
             <h1 className="mt-6 font-display text-6xl leading-none">
-              One step away from your reading world.
+              आपले खाते सक्रिय करण्यासाठी
+              फक्त एक पाऊल बाकी
             </h1>
             <p className="mt-4 max-w-xl text-lg leading-8 text-muted-foreground">
-              We sent a 6-digit code to{' '}
-              <span className="font-semibold text-foreground">{email}</span>. Enter it below to
-              verify your account and gain full access to BookVault.
+              <span className="font-semibold text-foreground">{email}</span>{' '} या ई-मेल पत्त्यावर
+              ६ अंकी OTP पाठविण्यात आला आहे.
+              तो खाली प्रविष्ट करून आपले खाते सक्रिय करा.
             </p>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-3">
             <Card className="rounded-[28px] border-white/70 bg-white/85 p-5 shadow-none">
-              <MailCheck className="size-5 text-[color:var(--color-brand)]" />
-              <p className="mt-4 font-semibold">Check your inbox</p>
+              <MailCheck className="size-5 text-[#7A2E92]" />
+              <p className="mt-4 font-semibold">ई-मेल तपासा</p>
               <p className="mt-2 text-sm text-muted-foreground">
-                The OTP is valid for 10 minutes. Check spam if needed.
+                OTP १० मिनिटांसाठी वैध आहे.
+                ई-मेल दिसत नसल्यास स्पॅम फोल्डर तपासा.
               </p>
             </Card>
             <Card className="rounded-[28px] border-white/70 bg-white/85 p-5 shadow-none">
-              <RefreshCw className="size-5 text-[color:var(--color-brand)]" />
-              <p className="mt-4 font-semibold">Resend anytime</p>
+              <RefreshCw className="size-5 text-[#7A2E92]" />
+              <p className="mt-4 font-semibold">पुन्हा OTP मिळवा</p>
               <p className="mt-2 text-sm text-muted-foreground">
-                Didn&apos;t get it? Request a fresh code after 60 seconds.
+                OTP प्राप्त न झाल्यास ६० सेकंदांनंतर पुन्हा पाठवू शकता.
               </p>
             </Card>
             <Card className="rounded-[28px] border-white/70 bg-white/85 p-5 shadow-none">
-              <ShieldCheck className="size-5 text-[color:var(--color-brand)]" />
-              <p className="mt-4 font-semibold">Secure &amp; private</p>
+              <ShieldCheck className="size-5 text-[#7A2E92]" />
+              <p className="mt-4 font-semibold">सुरक्षित पडताळणी</p>
               <p className="mt-2 text-sm text-muted-foreground">
-                OTPs expire automatically — your account stays protected.
+                OTP कालबाह्य झाल्यावर आपोआप निष्क्रिय होतो.
               </p>
             </Card>
           </div>
@@ -130,19 +131,20 @@ function VerifyOtpForm() {
         <section className="section-shell flex items-center justify-center p-5 sm:p-8">
           <Card className="w-full max-w-lg rounded-[32px] border-white/70 bg-white/90 p-6 shadow-none sm:p-8">
             <Badge className="rounded-full bg-[color:var(--color-brand-faint)] px-4 py-1.5 text-[color:var(--color-brand-strong)]">
-              Verify OTP
+              🔐 OTP पडताळणी
             </Badge>
-            <h2 className="mt-5 text-3xl font-semibold tracking-tight sm:text-4xl">
-              Verify your email
+            <h2 className="mt-5 text-3xl text-[#7A2E92] font-semibold tracking-tight sm:text-4xl">
+              ई-मेल पडताळणी करा
             </h2>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">
-              Enter the 6-digit code we sent to{' '}
-              <span className="font-medium text-foreground">{email}</span>.
+              <span className="font-medium text-foreground">{email}</span>{' '}
+              या ई-मेलवर पाठविलेला
+              ६ अंकी OTP खाली प्रविष्ट करा.
             </p>
 
             <form onSubmit={handleVerify} className="mt-8 space-y-5">
               <div className="space-y-2">
-                <Label htmlFor="otp">One-Time Password</Label>
+                <Label htmlFor="otp">OTP</Label>
                 <Input
                   id="otp"
                   type="text"
@@ -162,12 +164,12 @@ function VerifyOtpForm() {
                 className="h-12 w-full rounded-full bg-[linear-gradient(135deg,var(--color-brand),var(--color-brand-strong))] text-white shadow-lg shadow-[color:var(--color-brand-soft)]"
                 disabled={isVerifying}
               >
-                {isVerifying ? 'Verifying…' : 'Verify email'}
+                {isVerifying ? 'पडताळणी सुरू आहे...' : 'OTP पडताळा'}
               </Button>
             </form>
 
             <div className="mt-5 flex items-center justify-between">
-              <p className="text-sm text-muted-foreground">Didn&apos;t receive the code?</p>
+              <p className="text-sm text-muted-foreground">OTP प्राप्त झाला नाही?</p>
               <Button
                 variant="ghost"
                 size="sm"
@@ -176,14 +178,18 @@ function VerifyOtpForm() {
                 disabled={isResending || cooldown > 0}
               >
                 <RefreshCw className="size-3.5" />
-                {isResending ? 'Sending…' : cooldown > 0 ? `Resend in ${cooldown}s` : 'Resend OTP'}
+                {isResending
+                  ? 'पाठवत आहे...'
+                  : cooldown > 0
+                    ? `${cooldown} सेकंदांनी पुन्हा पाठवा`
+                    : 'OTP पुन्हा पाठवा'}
               </Button>
             </div>
 
             <p className="mt-6 text-center text-sm text-muted-foreground">
-              Wrong email?{' '}
+              ई-मेल चुकीचा आहे?{' '}
               <Link href="/register" className="font-semibold text-[color:var(--color-brand)]">
-                Register again
+                पुन्हा नोंदणी करा
               </Link>
             </p>
           </Card>
