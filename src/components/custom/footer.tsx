@@ -11,50 +11,57 @@ export default function Footer() {
 
                 {/* Address */}
                 <div>
-                    <h3 className="mb-3 text-xl font-semibold text-[#fcd62e]">
-                        असोसिएशन कार्यालय
+                    <h3 className="mb-4 text-xl font-semibold text-[#fcd62e]">
+                        संघटना कार्यालय
                     </h3>
 
-                    <p className="text-md leading-relaxed">
-                        कोल्हापूर जिल्हा नागरी बँक्स सहकारी असोसिएशन लि.
+                    <p className="text-md leading-7">
+                        कोल्हापूर जिल्हा नागरी सहकारी बँक्स असोसिएशन लि.
                         <br />
-                        कोल्हापूर - 416012
+                        सी. एस. क्र. १४५८, जी. एन. चेंबर्स,
+                        <br />
+                        मंगळवार पेठ, कोल्हापूर,
+                        <br />
+                        महाराष्ट्र - ४१६०१२
                     </p>
 
-                    <a href="tel:02312627307" className="hover:text-[#fcd62e]">
-                        0231-2627307
+                    <a
+                        href="tel:02312627307"
+                        className="mt-4 inline-block font-medium transition-colors hover:text-[#fcd62e]"
+                    >
+                        📞 ०२३१-२६२७३०७
                     </a>
                 </div>
 
                 <div>
 
-                {/* Quick Links */}
-                <h4 className="mb-3 text-xl font-semibold text-[#fcd62e]">
-                    ई-पुस्तक विभाग
-                </h4>
+                    {/* Quick Links */}
+                    <h4 className="mb-3 text-xl font-semibold text-[#fcd62e]">
+                        ई-पुस्तक विभाग
+                    </h4>
 
-                <ul className="space-y-2 text-md">
-                    <li>
-                        <Link href="/" className="hover:text-[#fcd62e]">
-                            मुखपृष्ठ
-                        </Link>
-                    </li>
+                    <ul className="space-y-2 text-md">
+                        <li>
+                            <Link href="/" className="hover:text-[#fcd62e]">
+                                मुखपृष्ठ
+                            </Link>
+                        </li>
 
-                    <li>
-                        <Link href="/books" className="hover:text-[#fcd62e]">
-                            पुस्तक संग्रह
-                        </Link>
-                    </li>
+                        <li>
+                            <Link href="/books" className="hover:text-[#fcd62e]">
+                                पुस्तक संग्रह
+                            </Link>
+                        </li>
 
-                    <li>
-                        <a
-                            href="https://bank-association.vercel.app"
-                            className="font-medium text-[#fcd62e] hover:text-yellow-400"
-                        >
-                            भरती पोर्टल ↗
-                        </a>
-                    </li>
-                </ul>
+                        <li>
+                            <a
+                                href="https://bank-association.vercel.app"
+                                className="font-medium text-[#fcd62e] hover:text-yellow-400"
+                            >
+                                भरती पोर्टल ↗
+                            </a>
+                        </li>
+                    </ul>
                 </div>
 
                 {/* Copyright */}
