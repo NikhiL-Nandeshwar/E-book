@@ -1,12 +1,8 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
-import { BookOpen, Compass, Search, Sparkles } from 'lucide-react'
-
-import { BookCard } from '@/src/components/custom/book-card'
-import { Header } from '@/src/components/custom/header'
-import { SiteFooter } from '@/src/components/custom/site-footer'
+import { BookOpen, Search } from 'lucide-react'
 import { Badge } from '@/src/components/ui/badge'
 import { Button } from '@/src/components/ui/button'
 import { localBooks } from '@/src/lib/local-books'
@@ -81,15 +77,15 @@ export default function BooksPage() {
                 </p>
               </div>
 
-              <div className="rounded-3xl border bg-white p-5">
+              {/* <div className="rounded-3xl border bg-white p-5">
                 <p className="text-sm text-slate-500">
                   स्वरूप
                 </p>
 
-                <p className="mt-1 text-3xl font-bold text-[#7A2E92]">
+                <p className="mt-1 text-2xl font-bold text-[#7A2E92]">
                   PDF
                 </p>
-              </div>
+              </div> */}
             </div>
           </div>
         </section>
@@ -113,7 +109,7 @@ export default function BooksPage() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="पुस्तकाचे नाव शोधा..."
-                className="h-12 rounded-full pl-11"
+                className="h-12 rounded-full pl-11 border-[#7A2E92]/30"
               />
             </div>
           </div>
