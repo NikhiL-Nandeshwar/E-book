@@ -55,7 +55,7 @@ export default function Footer() {
 
                         <li>
                             <a
-                                href="https://bank-association.vercel.app"
+                                href="https://www.kopbankasso-recruit-book.com"
                                 className="font-medium text-[#fcd62e] hover:text-yellow-400"
                             >
                                 भरती पोर्टल ↗
