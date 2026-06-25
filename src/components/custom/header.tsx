@@ -34,15 +34,20 @@ export function Header() {
   return (
     <>
       {/* Top Strip */}
-      <div className="bg-slate-100 text-sm text-slate-800">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2">
-          <span>
-            कार्यालयीन वेळ : सोम - शनि | सकाळी १०:०० - संध्या ५:००
-          </span>
+      <div className="bg-slate-100 text-slate-800">
+        <div className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-2 text-xs sm:flex-row sm:items-center sm:justify-between sm:text-sm">
+          <div className="flex items-center gap-2">
+            <span>कार्यालयीन वेळ : सोम - शनि | सकाळी १०:०० - संध्या ५:००</span>
+          </div>
 
-          <span>
-            हेल्पलाईन : ०२३१-२६२७३०७
-          </span>
+          <div className="flex items-center gap-2">
+            <a
+              href="tel:02312627307"
+              className="font-medium hover:text-[#7A2E92]"
+            >
+              हेल्पलाईन : ०२३१-२६२७३०७
+            </a>
+          </div>
         </div>
       </div>
 

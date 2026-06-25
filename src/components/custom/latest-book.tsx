@@ -39,8 +39,8 @@ export function LatestBooks() {
     );
 
     return (
-        <section className="bg-gradient-to-r from-transparent via-[#7A2E92]/20 to-transparent px-10 py-14">
-            <div className="mx-auto max-w-7xl rounded-[40px] border border-white/70 bg-white/60 p-10 backdrop-blur-sm">
+        <section className="bg-gray-100 border-t border-[#7A2E92]/20 px-10 py-14">
+            <div className="mx-auto max-w-7xl rounded-[40px] border border-[#7A2E92]/20 bg-white/60 p-10 backdrop-blur-sm">
                 {/* Section Header */}
                 <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
                     <div>

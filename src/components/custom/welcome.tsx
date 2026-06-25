@@ -4,7 +4,7 @@ import Link from 'next/link';
 export function Welcome() {
       return (
 
-    <section className="flex min-h-[60vh] items-center bg-slate-50">
+    <section className="flex min-h-[60vh] items-center bg-[#f9f6f7]">
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-8 px-4 py-10 md:flex-row">
             {/* Left - Logo */}
             <div className="flex justify-center">
@@ -24,7 +24,7 @@ export function Welcome() {
                     📚 ई-पुस्तक विभाग
                 </p>
 
-                <h1 className="mb-4 text-3xl font-bold leading-tight text-[#7A2E92]">
+                <h1 className="mb-4 text-3xl font-bold leading-tight text-[#b13c7a]">
                     कोल्हापूर जिल्हा नागरी बँक्स असोसिएशन लि.
                 </h1>
 
