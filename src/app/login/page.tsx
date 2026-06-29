@@ -1,11 +1,11 @@
-'use client'
+﻿'use client'
 
 import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Eye, EyeOff, Library, LockKeyhole, Mail } from 'lucide-react'
+import { Eye, EyeOff } from 'lucide-react'
 import Image from 'next/image'
-import { useDemo } from '@/src/components/custom/demo-provider'
+import { useAuth } from '@/src/components/custom/demo-provider'
 import { Badge } from '@/src/components/ui/badge'
 import { Button } from '@/src/components/ui/button'
 import { Card } from '@/src/components/ui/card'
@@ -15,7 +15,7 @@ import { toast } from 'sonner'
 
 export default function LoginPage() {
   const router = useRouter()
-  const { login } = useDemo()
+  const { login } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -25,12 +25,12 @@ export default function LoginPage() {
     event.preventDefault()
 
     if (!email || !password) {
-      toast.error('कृपया तुमचा ईमेल आणि पासवर्ड टाका.')
+      ('कृपया तुमचा ईमेल आणि पासवर्ड टाका.')
       return
     }
 
     if (!email.includes('@')) {
-      toast.error('कृपया योग्य ईमेल पत्ता टाका.')
+      ('कृपया योग्य ईमेल पत्ता टाका.')
       return
     }
 
@@ -38,17 +38,24 @@ export default function LoginPage() {
     const result = await login(email, password)
     setIsLoading(false)
 
-    if (result.success) {
-      router.push('/')
-    } else {
+    if (!result.success) {
       toast.error(result.message)
+      return
     }
+
+    const role = result.user?.role?.toLowerCase()
+
+    if (role === 'admin') {
+      router.replace('/admin/books')
+      return
+    }
+
+    router.replace('/library')
   }
 
   return (
     <main className="min-h-screen px-4 py-10 sm:px-6 lg:px-8">
       <div className="mx-auto grid min-h-[calc(100vh-3rem)] max-w-7xl gap-12 lg:grid-cols-[1fr_1fr]">
-        {/* ── Left column ─────────────────────────────────────────────── */}
         <section className="section-shell relative hidden overflow-hidden bg-[#f6e6ca] p-6 lg:flex">
           <Image
             src="/login_banner_1.png"
@@ -59,7 +66,6 @@ export default function LoginPage() {
           />
         </section>
 
-        {/* ── Right column: form ──────────────────────────────────────── */}
         <section className="section-shell flex items-center justify-center p-5 sm:p-8">
           <Card className="w-full max-w-lg rounded-[32px] border-white/70 bg-white/90 p-6 shadow-none sm:p-8">
             <Badge className="rounded-full bg-[color:var(--color-brand-faint)] px-4 py-1.5 text-[color:var(--color-brand-strong)]">
@@ -81,7 +87,7 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="h-12 rounded-2xl border-white bg-[#fdfaf5]"
-                  placeholder="you@/srcexample.com"
+                  placeholder="you@example.com"
                   autoComplete="email"
                   disabled={isLoading}
                 />
@@ -131,7 +137,7 @@ export default function LoginPage() {
             </form>
 
             <p className="mt-6 text-center text-sm text-muted-foreground">
-              नवीन वापरकर्ता आहात?{' '}
+             नवीन वापरकर्ता आहात?{' '}
               <Link
                 href="/register"
                 className="font-semibold text-[#7A2E92]"
@@ -145,3 +151,4 @@ export default function LoginPage() {
     </main>
   )
 }
+

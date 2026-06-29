@@ -27,7 +27,7 @@ export function Header() {
     // },
     {
       label: 'माझे पुस्तकालय',
-      href: '/my-library',
+      href: '/library',
     },
   ];
 
@@ -71,7 +71,7 @@ export function Header() {
 
             <div>
               <p className="text-lg font-semibold leading-tight">
-                कोल्हापूर जिल्हा नागरी बँक्स
+                कोल्हापूर जिल्हा नागरी बँक्स सहकारी
               </p>
 
               <p className="text-[#fbf5da]">

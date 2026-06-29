@@ -39,7 +39,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/src/components/ui/table'
-import { useDemo } from '@/src/components/custom/demo-provider'
+import { useAdminGuard } from '@/src/hooks/use-auth-guard'
 import { getCategoryDropdownApi } from '@/src/lib/category-api'
 import { getAuthorDropdownApi } from '@/src/lib/author-api'
 import {
@@ -97,8 +97,7 @@ const emptyForm: BookFormState = {
 }
 
 export default function AdminBooksPage() {
-  const { user, isHydrated } = useDemo()
-  const isAdmin = user?.role?.toLowerCase() === 'admin'
+  const { user, isHydrated, isAdmin } = useAdminGuard()
 
   const [books, setBooks] = useState<BookListItemData[]>([])
   const [categories, setCategories] = useState<DropdownItem[]>([])
@@ -659,3 +658,4 @@ export default function AdminBooksPage() {
     </main>
   )
 }
+

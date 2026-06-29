@@ -1,7 +1,7 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { BookOpen, Sparkles, Star } from 'lucide-react'
 
-import { useDemo } from '@/src/components/custom/demo-provider'
+import { useAuth } from '@/src/components/custom/demo-provider'
 import { Badge } from '@/src/components/ui/badge'
 import { Button } from '@/src/components/ui/button'
 import { Card, CardContent } from '@/src/components/ui/card'
@@ -12,7 +12,7 @@ interface BookCardProps {
 }
 
 export function BookCard({ book }: BookCardProps) {
-  const { purchasedIds, isHydrated } = useDemo()
+  const { purchasedIds, isHydrated } = useAuth()
 
   const isPurchased = isHydrated && purchasedIds.includes(book.id)
 
@@ -48,7 +48,7 @@ export function BookCard({ book }: BookCardProps) {
                   {book.title}
                 </h3>
               </Link>
-              <p className="mt-1 hidden text-sm text-yellow-800 sm:block">{book.author} · {book.genre}</p>
+              <p className="mt-1 hidden text-sm text-yellow-800 sm:block">{book.author} Â· {book.genre}</p>
             </div>
             {isPurchased ? (
               <Badge variant="outline" className="hidden rounded-full border-emerald-200 bg-emerald-50 text-emerald-700 sm:inline-flex">
@@ -95,3 +95,4 @@ export function BookCard({ book }: BookCardProps) {
     </Card>
   )
 }
+

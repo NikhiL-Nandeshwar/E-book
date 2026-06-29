@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react'
 import { BookOpen, ChevronLeft, ChevronRight, Lock, Maximize, Minimize, Minus, Plus, RefreshCw, X } from 'lucide-react'
 import { toast } from 'sonner'
 
-import { useDemo } from '@/src/components/custom/demo-provider'
+import { useAuth } from '@/src/components/custom/demo-provider'
 import { Button } from '@/src/components/ui/button'
 import { Card } from '@/src/components/ui/card'
 import { getBookBySlugApi, toCatalogBookFromDetail } from '@/src/lib/book-api'
@@ -28,7 +28,7 @@ declare global {
 
 export default function PDFReaderPage() {
   const params = useParams()
-  const { purchasedIds } = useDemo()
+  const { purchasedIds } = useAuth()
   const [book, setBook] = useState<CatalogBook | null>(null)
   const [totalPages, setTotalPages] = useState<number | null>(null)
   const [pageCount, setPageCount] = useState(0)

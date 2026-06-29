@@ -16,7 +16,7 @@ export default function Footer() {
                     </h3>
 
                     <p className="text-md leading-7">
-                        कोल्हापूर जिल्हा नागरी सहकारी बँक्स असोसिएशन लि.
+                        कोल्हापूर जिल्हा नागरी बँक्स सहकारी असोसिएशन लि.
                         <br />
                         सी. एस. क्र. १४५८, जी. एन. चेंबर्स,
                         <br />
@@ -67,7 +67,7 @@ export default function Footer() {
                 {/* Copyright */}
                 <div className="flex flex-col justify-end text-md">
                     <p>
-                        © {year} - Kolhapur District Urban Banks Association
+                        © {year} - Kolhapur Zilla Nagari Banks Sahakari Association Ltd.
                     </p>
 
                     <p className="mt-2 text-sm text-slate-200">

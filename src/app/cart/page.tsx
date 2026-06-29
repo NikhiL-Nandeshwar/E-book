@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import Link from 'next/link'
 import { ArrowRight, CreditCard, ShoppingBag, Trash2 } from 'lucide-react'
@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 
 import { Header } from '@/src/components/custom/header'
 import { SiteFooter } from '@/src/components/custom/site-footer'
-import { useDemo } from '@/src/components/custom/demo-provider'
+import { useAuth } from '@/src/components/custom/demo-provider'
 import {
   Empty,
   EmptyContent,
@@ -19,7 +19,7 @@ import { Button } from '@/src/components/ui/button'
 
 export default function CartPage() {
   const router = useRouter()
-  const { user, cartBooks, removeFromCart, totalAmount, checkout } = useDemo()
+  const { user, cartBooks, removeFromCart, totalAmount, checkout } = useAuth()
 
   const taxAmount = totalAmount * 0.08
   const finalAmount = totalAmount + taxAmount
@@ -159,3 +159,4 @@ export default function CartPage() {
     </main>
   )
 }
+

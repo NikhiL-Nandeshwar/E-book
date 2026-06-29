@@ -1,11 +1,11 @@
-'use client'
+﻿'use client'
 
 import Link from 'next/link'
 import { BookOpen, LockKeyhole, ShieldCheck } from 'lucide-react'
 
 import { Header } from '@/src/components/custom/header'
 import { SiteFooter } from '@/src/components/custom/site-footer'
-import { useDemo } from '@/src/components/custom/demo-provider'
+import { useAuth } from '@/src/components/custom/demo-provider'
 import {
   Empty,
   EmptyContent,
@@ -19,13 +19,13 @@ import { Button } from '@/src/components/ui/button'
 import { Card } from '@/src/components/ui/card'
 
 export default function LibraryPage() {
-  const { user, purchasedBooks, isHydrated } = useDemo()
+  const { user, purchasedBooks, isHydrated } = useAuth()
   const visibleUser = isHydrated ? user : null
   const visiblePurchasedBooks = isHydrated ? purchasedBooks : []
 
   return (
     <main className="min-h-screen">
-      <Header />
+      {/* <Header /> */}
 
       <div className="mx-auto max-w-7xl space-y-8 px-4 py-6 sm:px-6 lg:px-8">
         <section className="section-shell px-5 py-6 sm:px-8">
@@ -138,3 +138,4 @@ export default function LibraryPage() {
     </main>
   )
 }
+

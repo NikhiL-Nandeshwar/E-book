@@ -1,8 +1,6 @@
-/**
- * Centralised fetch wrapper for the BookVault REST API.
- * – Reads NEXT_PUBLIC_API_BASE_URL from .env.local
- * – Attaches Bearer token (stored in localStorage as 'bv_access_token')
- * – Forwards HttpOnly refresh-token cookie automatically (credentials: 'include')
+﻿/**
+ * Centralized fetch wrapper for the BookVault REST API.
+ * The browser relies on cookie-based auth, so every request includes credentials.
  */
 
 const DEFAULT_API_BASE_URL = 'https://kopbnkassobook.runasp.net/restapi/v1.0'
@@ -13,19 +11,21 @@ export const ASSET_BASE_URL =
   new URL(API_BASE_URL).origin
 
 if (!process.env.NEXT_PUBLIC_API_BASE_URL) {
-  console.warn(`[api-client] NEXT_PUBLIC_API_BASE_URL is not set. Falling back to ${DEFAULT_API_BASE_URL}`)
+  console.warn(
+    `[api-client] NEXT_PUBLIC_API_BASE_URL is not set. Falling back to ${DEFAULT_API_BASE_URL}`,
+  )
 }
 
 function buildApiUrl(path: string) {
   return `${API_BASE_URL.replace(/\/+$/, '')}/${path.replace(/^\/+/, '')}`
 }
 
-/** Matches ApiResponse<T> returned by every backend endpoint */
 export interface ApiResponse<T = unknown> {
   success: boolean
   message: string
   data: T | null
   statusCode: number
+  errors: string[] | Record<string, string[]> | string | null
 }
 
 function normalizeApiResponse<T>(payload: unknown, fallbackStatusCode: number): ApiResponse<T> {
@@ -45,7 +45,7 @@ function normalizeApiResponse<T>(payload: unknown, fallbackStatusCode: number): 
 
     if (errors && typeof errors === 'object') {
       const messages = Object.values(errors as Record<string, unknown[]>)
-        .flatMap((value) => Array.isArray(value) ? value : [])
+        .flatMap((value) => (Array.isArray(value) ? value : []))
         .filter((value): value is string => typeof value === 'string')
 
       return {
@@ -53,6 +53,7 @@ function normalizeApiResponse<T>(payload: unknown, fallbackStatusCode: number): 
         message: messages[0] ?? 'Validation failed.',
         data: null,
         statusCode: fallbackStatusCode,
+        errors: errors as ApiResponse<T>['errors'],
       }
     }
 
@@ -67,6 +68,7 @@ function normalizeApiResponse<T>(payload: unknown, fallbackStatusCode: number): 
       message,
       data: null,
       statusCode: fallbackStatusCode,
+      errors: null,
     }
   }
 
@@ -75,136 +77,104 @@ function normalizeApiResponse<T>(payload: unknown, fallbackStatusCode: number): 
     message: 'Unexpected server response. Please try again.',
     data: null,
     statusCode: fallbackStatusCode,
+    errors: null,
   }
 }
 
-// ── Token helpers ────────────────────────────────────────────────────────────
+export class ApiError extends Error {
+  statusCode: number
+  errors: ApiResponse<unknown>['errors']
 
-export function getAccessToken(): string | null {
-  if (typeof window === 'undefined') return null
-  return localStorage.getItem('bv_access_token')
+  constructor(
+    message: string,
+    statusCode: number,
+    errors: ApiResponse<unknown>['errors'] = null,
+  ) {
+    super(message)
+    this.name = 'ApiError'
+    this.statusCode = statusCode
+    this.errors = errors
+  }
 }
 
-export function saveAccessToken(token: string): void {
-  if (typeof window === 'undefined') return
-  localStorage.setItem('bv_access_token', token)
+type ApiRequestOptions = Omit<RequestInit, 'body'> & {
+  body?: unknown
 }
 
-export function clearAccessToken(): void {
-  if (typeof window === 'undefined') return
-  localStorage.removeItem('bv_access_token')
-}
+function buildHeaders(headers: HeadersInit | undefined, hasBody: boolean, isFormData: boolean) {
+  const resolvedHeaders: Record<string, string> = {
+    Accept: 'application/json',
+  }
 
-let refreshPromise: Promise<boolean> | null = null
+  if (!isFormData && hasBody) {
+    resolvedHeaders['Content-Type'] = 'application/json'
+  }
 
-async function tryRefreshToken(): Promise<boolean> {
-  if (!refreshPromise) {
-    refreshPromise = (async () => {
-      const response = await fetch(buildApiUrl('Auth/RefreshToken'), {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-      })
-
-      const json: ApiResponse<{ accessToken: string } | null> = await response.json().catch(() => ({
-        success: false,
-        message: 'Unable to refresh session.',
-        data: null,
-        statusCode: response.status,
-      }))
-
-      if (response.ok && json.success && json.data?.accessToken) {
-        saveAccessToken(json.data.accessToken)
-        return true
-      }
-
-      clearAccessToken()
-      return false
-    })().finally(() => {
-      refreshPromise = null
+  if (headers) {
+    new Headers(headers).forEach((value, key) => {
+      resolvedHeaders[key] = value
     })
   }
 
-  return refreshPromise
+  return resolvedHeaders
 }
-
-function buildHeaders(options: RequestInit, token: string | null) {
-  const isFormData = typeof FormData !== 'undefined' && options.body instanceof FormData
-  const headers: Record<string, string> = {
-    ...(options.headers as Record<string, string> | undefined),
-  }
-
-  if (!isFormData && !headers['Content-Type']) {
-    headers['Content-Type'] = 'application/json'
-  }
-
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`
-  }
-
-  return headers
-}
-
-// ── Core fetch wrapper ───────────────────────────────────────────────────────
 
 export async function apiFetch<T>(
   path: string,
-  options: RequestInit = {},
-  hasRetried = false,
+  options: ApiRequestOptions = {},
 ): Promise<ApiResponse<T>> {
-  const token = getAccessToken()
-  const headers = buildHeaders(options, token)
+  const { body, headers, ...requestOptions } = options
+  const isFormData = typeof FormData !== 'undefined' && body instanceof FormData
+  const hasBody = body !== undefined
 
   const response = await fetch(buildApiUrl(path), {
-    ...options,
-    headers,
-    credentials: 'include', // sends & receives the HttpOnly refreshToken cookie
+    ...requestOptions,
+    credentials: 'include',
+    headers: buildHeaders(headers, hasBody, isFormData),
+    body: isFormData
+      ? body
+      : hasBody
+        ? JSON.stringify(body)
+        : undefined,
   })
 
-  // The backend always returns JSON even on error codes
-  const rawPayload = await response.json().catch(() => null)
-  const json = normalizeApiResponse<T>(rawPayload, response.status)
+  let payload: ApiResponse<T> | null = null
 
-  if (
-    !hasRetried &&
-    response.status === 401 &&
-    path !== 'Auth/Login' &&
-    path !== 'Auth/RefreshToken'
-  ) {
-    const refreshed = await tryRefreshToken()
-    if (refreshed) {
-      return apiFetch<T>(path, options, true)
-    }
+  try {
+    payload = normalizeApiResponse<T>(await response.json(), response.status)
+  } catch {
+    payload = null
   }
 
-  return json
+  if (!response.ok || !payload?.success) {
+    throw new ApiError(
+      payload?.message || 'Request failed. Please try again.',
+      payload?.statusCode || response.status,
+      payload?.errors ?? null,
+    )
+  }
+
+  return payload
 }
 
 export async function apiRawFetch<T>(
   path: string,
-  options: RequestInit = {},
-  hasRetried = false,
+  options: ApiRequestOptions = {},
 ): Promise<T> {
-  const token = getAccessToken()
-  const headers = buildHeaders(options, token)
+  const { body, headers, ...requestOptions } = options
+  const isFormData = typeof FormData !== 'undefined' && body instanceof FormData
+  const hasBody = body !== undefined
 
   const response = await fetch(buildApiUrl(path), {
-    ...options,
-    headers,
+    ...requestOptions,
     credentials: 'include',
+    headers: buildHeaders(headers, hasBody, isFormData),
+    body: isFormData
+      ? body
+      : hasBody
+        ? JSON.stringify(body)
+        : undefined,
   })
 
-  if (
-    !hasRetried &&
-    response.status === 401 &&
-    path !== 'Auth/Login' &&
-    path !== 'Auth/RefreshToken'
-  ) {
-    const refreshed = await tryRefreshToken()
-    if (refreshed) {
-      return apiRawFetch<T>(path, options, true)
-    }
-  }
-
-  return response.json()
+  return response.json().catch(() => null) as Promise<T>
 }

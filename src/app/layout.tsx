@@ -1,9 +1,9 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import { Roboto, Manrope } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { Toaster } from 'sonner'
 
-import { DemoProvider } from '@/src/components/custom/demo-provider'
+import { AuthProvider } from '@/src/components/custom/demo-provider'
 import { ThemeProvider } from '@/src/components/custom/theme-provider'
 import './globals.css'
 import { Header } from '../components/custom/header'
@@ -38,7 +38,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${manrope.variable} ${roboto.variable} font-sans antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-          <DemoProvider>
+          <AuthProvider>
             <div className="flex min-h-screen flex-col">
 
               <Header />
@@ -60,7 +60,7 @@ export default function RootLayout({
               />
 
             </div>
-          </DemoProvider>
+          </AuthProvider>
         </ThemeProvider>
 
         <Analytics />
@@ -68,3 +68,4 @@ export default function RootLayout({
     </html>
   )
 }
+

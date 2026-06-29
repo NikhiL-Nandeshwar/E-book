@@ -23,7 +23,7 @@ import { getBookBySlugApi, toCatalogBookFromDetail } from '@/src/lib/book-api'
 import { findLocalBookBySlug } from '@/src/lib/local-books'
 import { upsertCatalogBooks, type CatalogBook } from '@/src/lib/book-catalog'
 import { createOrderApi, verifyPaymentApi } from '@/src/lib/order-api'
-import { useDemo } from '@/src/components/custom/demo-provider'
+import { useAuth } from '@/src/components/custom/demo-provider'
 
 declare global {
   interface Window {
@@ -89,7 +89,7 @@ async function loadRazorpayScript() {
 export default function BookDetailsPage() {
   const params = useParams()
   const router = useRouter()
-  const { user, addToCart, markPurchased, purchasedIds } = useDemo()
+  const { user, addToCart, markPurchased, purchasedIds } = useAuth()
   const [book, setBook] = useState<CatalogBook | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isPaying, setIsPaying] = useState(false)

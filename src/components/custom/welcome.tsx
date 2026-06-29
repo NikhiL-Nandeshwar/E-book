@@ -25,7 +25,7 @@ export function Welcome() {
                 </p>
 
                 <h1 className="mb-4 text-3xl font-bold leading-tight text-[#b13c7a]">
-                    कोल्हापूर जिल्हा नागरी बँक्स असोसिएशन लि.
+                    कोल्हापूर जिल्हा नागरी बँक्स सहकारी असोसिएशन लि.
                 </h1>
 
                 <p className="mb-3 text-2xl text-slate-700">

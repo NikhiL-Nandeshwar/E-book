@@ -1,4 +1,4 @@
-import { apiFetch, type ApiResponse } from './api-client'
+﻿import { apiFetch, type ApiResponse } from './api-client'
 
 export interface CategoryDetail {
   categoryId: number
@@ -42,7 +42,7 @@ export const createCategoryApi = (
 ): Promise<ApiResponse<CategoryDetail>> =>
   apiFetch<CategoryDetail>('Category/Create', {
     method: 'POST',
-    body: JSON.stringify(payload),
+    body: payload,
   })
 
 export const updateCategoryApi = (
@@ -50,7 +50,7 @@ export const updateCategoryApi = (
 ): Promise<ApiResponse<CategoryDetail>> =>
   apiFetch<CategoryDetail>('Category/Update', {
     method: 'PUT',
-    body: JSON.stringify(payload),
+    body: payload,
   })
 
 export const toggleCategoryApi = (id: number): Promise<ApiResponse<boolean>> =>
@@ -62,3 +62,4 @@ export const deleteCategoryApi = (id: number): Promise<ApiResponse<boolean>> =>
   apiFetch<boolean>(`Category/Delete?id=${id}`, {
     method: 'DELETE',
   })
+

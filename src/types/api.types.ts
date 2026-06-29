@@ -1,4 +1,4 @@
-export type ApiResponse<T> = {
+﻿export type ApiResponse<T> = {
   success: boolean;
   statusCode: number;
   message: string;
@@ -34,19 +34,18 @@ export interface Book {
 }
 
 export type LoginResponse = {
-  token: string;
-  refreshToken?: string;
-
-  role?: string;
-  userId?: number;
-  candidateId?: number | null;
-  fullName?: string;
-  email?: string;
-  isEmailVerified?: boolean;
-
-  tokenExpiry?: string;
-  tokenExpiryUnix?: number;
-
-  accessTokenExpiryMinutes?: number;
-  refreshTokenExpiryDays?: number;
+  userId: number
+  fullName: string
+  email: string
+  mobile: string
+  role: string
+  candidateId?: number | null
+  isEmailVerified?: boolean
+  profilePicUrl?: string | null
+  accessToken?: string
+  refreshToken?: string | null
+  tokenExpiry?: string
+  tokenExpiryUnix?: number
+  accessTokenExpiryMinutes?: number
+  refreshTokenExpiryDays?: number
 };

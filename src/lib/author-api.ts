@@ -1,4 +1,4 @@
-import { apiFetch, type ApiResponse } from './api-client'
+﻿import { apiFetch, type ApiResponse } from './api-client'
 
 export interface AuthorDetail {
   authorId: number
@@ -40,7 +40,7 @@ export const createAuthorApi = (
 ): Promise<ApiResponse<AuthorDetail>> =>
   apiFetch<AuthorDetail>('Author/Create', {
     method: 'POST',
-    body: JSON.stringify(payload),
+    body: payload,
   })
 
 export const updateAuthorApi = (
@@ -48,7 +48,7 @@ export const updateAuthorApi = (
 ): Promise<ApiResponse<AuthorDetail>> =>
   apiFetch<AuthorDetail>('Author/Update', {
     method: 'PUT',
-    body: JSON.stringify(payload),
+    body: payload,
   })
 
 export const toggleAuthorApi = (id: number): Promise<ApiResponse<boolean>> =>
@@ -60,3 +60,4 @@ export const deleteAuthorApi = (id: number): Promise<ApiResponse<boolean>> =>
   apiFetch<boolean>(`Author/Delete/${id}`, {
     method: 'DELETE',
   })
+

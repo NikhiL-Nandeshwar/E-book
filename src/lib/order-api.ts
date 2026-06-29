@@ -1,4 +1,4 @@
-import { apiFetch, type ApiResponse } from './api-client'
+﻿import { apiFetch, type ApiResponse } from './api-client'
 
 export interface CreateOrderPayload {
   bookId: number
@@ -33,7 +33,7 @@ export const createOrderApi = (
 ): Promise<ApiResponse<CreateOrderResponseData>> =>
   apiFetch<CreateOrderResponseData>('OrderTransaction/CreateOrder', {
     method: 'POST',
-    body: JSON.stringify(payload),
+    body: payload,
   })
 
 export const verifyPaymentApi = (
@@ -41,5 +41,6 @@ export const verifyPaymentApi = (
 ): Promise<ApiResponse<VerifyPaymentResponseData>> =>
   apiFetch<VerifyPaymentResponseData>('OrderTransaction/VerifyPayment', {
     method: 'POST',
-    body: JSON.stringify(payload),
+    body: payload,
   })
+

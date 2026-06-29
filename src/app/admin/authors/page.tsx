@@ -39,7 +39,7 @@ import {
   TableRow,
 } from '@/src/components/ui/table'
 import { Textarea } from '@/src/components/ui/textarea'
-import { useDemo } from '@/src/components/custom/demo-provider'
+import { useAdminGuard } from '@/src/hooks/use-auth-guard'
 import {
   createAuthorApi,
   deleteAuthorApi,
@@ -64,8 +64,7 @@ const emptyForm: AuthorFormState = {
 }
 
 export default function AdminAuthorsPage() {
-  const { user, isHydrated } = useDemo()
-  const isAdmin = user?.role?.toLowerCase() === 'admin'
+  const { user, isHydrated, isAdmin } = useAdminGuard()
 
   const [authors, setAuthors] = useState<AuthorDetail[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -243,7 +242,7 @@ export default function AdminAuthorsPage() {
   }
 
   if (!isAdmin) {
-    return renderUnauthorized()
+    return null
   }
 
   return (
@@ -506,3 +505,4 @@ export default function AdminAuthorsPage() {
     </main>
   )
 }
+

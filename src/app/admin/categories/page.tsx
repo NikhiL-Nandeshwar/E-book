@@ -39,7 +39,7 @@ import {
   TableRow,
 } from '@/src/components/ui/table'
 import { Textarea } from '@/src/components/ui/textarea'
-import { useDemo } from '@/src/components/custom/demo-provider'
+import { useAdminGuard } from '@/src/hooks/use-auth-guard'
 import {
   createCategoryApi,
   deleteCategoryApi,
@@ -66,8 +66,7 @@ const emptyForm: CategoryFormState = {
 }
 
 export default function AdminCategoriesPage() {
-  const { user, isHydrated } = useDemo()
-  const isAdmin = user?.role?.toLowerCase() === 'admin'
+  const { user, isHydrated, isAdmin } = useAdminGuard()
 
   const [categories, setCategories] = useState<CategoryDetail[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -247,7 +246,7 @@ export default function AdminCategoriesPage() {
   }
 
   if (!isAdmin) {
-    return renderUnauthorized()
+    return null
   }
 
   return (
@@ -525,3 +524,4 @@ export default function AdminCategoriesPage() {
     </main>
   )
 }
+
